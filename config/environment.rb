@@ -1,8 +1,8 @@
 require 'bundler'
-require 'uri'
-require 'net/http'
-require 'openssl'
-require 'json'
+# require 'uri'
+# require 'net/http'
+# require 'openssl'
+#require 'json'
 require 'pry'
 require 'dotenv/load'
 Bundler.require
