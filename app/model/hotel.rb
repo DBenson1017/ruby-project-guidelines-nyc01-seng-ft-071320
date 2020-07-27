@@ -1,0 +1,9 @@
+class Hotel 
+
+
+
+
+
+
+  
+end
