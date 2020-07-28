@@ -3,7 +3,6 @@ class Reservation < ActiveRecord::Base
     belongs_to :user
 
   def self.reservations_menu
-    user = User.user_instance
     puts "      RESERVATIONS\n\n"
     puts "To view all Reservations, Enter: 1"
     puts "To view past Reservations, Enter: 2"
@@ -13,8 +12,7 @@ class Reservation < ActiveRecord::Base
     user_input = gets.chomp.strip
     case user_input
     when "1"
-      binding.pry
-      self.hotels.all
+      $current_user.hotels
     when "2"
       # Write method to view past reservations
     when "3"

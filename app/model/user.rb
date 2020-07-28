@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
     has_many :hotels, through: :reservations 
 
     #update messages for ease of use 
-  @@user_instance = []
+  # @@user_instance = []
   def main_menu 
     puts "\n\n     MAIN MENU\n\n"
     puts "To manage your reservations, enter: 1"
@@ -33,9 +33,8 @@ class User < ActiveRecord::Base
       puts "Incorrect email/password"
       User.log_in
     else
-      u1 = User.find_by(email: email_input, password: pw)
-      @@user_instance << u1
-      u1.main_menu
+      $current_user = User.find_by(email: email_input, password: pw)
+      $current_user.main_menu
       
     end
   end
@@ -50,17 +49,17 @@ class User < ActiveRecord::Base
       puts "Lastly, please create a password!"
       pw = gets.chomp.strip
       
-      new_user = User.create(first_name: first, last_name: last, email: user_email, password: pw)
+      $current_user = User.create(first_name: first, last_name: last, email: user_email, password: pw)
       puts "Thank you #{first} for signing up for BOOKING: NEW YORK!!"
       puts "Enjoy your first trip!"
       puts " "
       #add way to validaite, after we create the Update methods in user 
       # method to take them to main menu
-      @@user_instance << new_user
+      main_menu
     end
-    def self.user_instance
-      @@user_instance
-    end
+    # def self.user_instance
+    #   @@user_instance
+    # end
   
 
 
