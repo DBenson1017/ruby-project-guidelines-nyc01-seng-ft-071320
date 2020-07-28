@@ -3,11 +3,11 @@ class Cli
 
 
   def self.begin
-    puts "Welcome to BOOKING: NEW YORK"
-    puts " "
-    puts "A simple and easy way to book accomidations in New York City"
-    puts " "
-    puts "To login in type 'log in' to sign up type 'sign up'"
+    puts "\nWelcome to BOOKING: NEW YORK\n\n"
+    # puts " "
+    puts "A simple and easy way to book accomidations in New York City\n\n"
+    # puts " "
+    puts "To login in type 'log in' to sign up type 'sign up'\n\n"
     u_response = gets.chomp.downcase.strip
     case u_response
     when 'log in'
@@ -15,12 +15,12 @@ class Cli
     when 'sign up'
       User.sign_up
     else
+      puts "**********************"
+      puts "*****Invalid input****"
+      puts "**********************\n\n"
       Cli.begin
     end
-
   end
 
-
-  ##############METHODS TO ADD 
 
 end
