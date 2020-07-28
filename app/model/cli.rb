@@ -8,17 +8,19 @@ class Cli
     puts "A simple and easy way to book accomidations in New York City"
     puts " "
     puts "To login in type 'log in' to sign up type 'sign up'"
-    u_response = gets.chomp.downcase
+    u_response = gets.chomp.downcase.strip
     case u_response
     when 'log in'
-      #send to the log in method in User
+      User.log_in
     when 'sign up'
-      #send to sign up method in User
+      User.sign_up
     else
-      User.begin
+      Cli.begin
     end
 
   end
 
+
+  ##############METHODS TO ADD 
 
 end
