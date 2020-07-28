@@ -1,13 +1,10 @@
 require 'bundler'
-# require 'uri'
-# require 'net/http'
-# require 'openssl'
-#require 'json'
 require 'pry'
 require 'dotenv/load'
 Bundler.require
 
 require_all 'app/model'
+require_relative '../db/seeds.rb'
 
 
 
