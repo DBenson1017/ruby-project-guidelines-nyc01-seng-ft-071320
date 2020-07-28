@@ -4,7 +4,7 @@ require 'dotenv/load'
 Bundler.require
 
 require_all 'app/model'
-require_relative '../db/seeds.rb'
+# require_relative '../db/seeds.rb'
 
 
 
