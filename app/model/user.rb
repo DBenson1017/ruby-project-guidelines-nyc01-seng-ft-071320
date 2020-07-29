@@ -2,8 +2,7 @@ class User < ActiveRecord::Base
     has_many :reservations 
     has_many :hotels, through: :reservations 
 
-    #update messages for ease of use 
-  # @@user_instance = []
+
   def self.main_menu 
     puts "\n\n     MAIN MENU\n\n"
     puts "To manage Reservations, Enter: 1"

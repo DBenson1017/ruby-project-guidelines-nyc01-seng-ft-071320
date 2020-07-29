@@ -60,21 +60,9 @@ class Reservation < ActiveRecord::Base
   def self.reservation_update
       puts "\nHere are all your upcoming Reservations:\n"
       Reservation.reservations_list_by_name_and_id
-      
-      
-      
-      # puts "\nIf you would like to change the dates of one of these Reservations Enter: 1\nIf you would like to change the guest count for one of these Reservations Enter: 2\n\n"
-      # user_choice = gets.chomp.strip
-      # case user_choice
-      # when "1"
-      #   Reservation.update_date
-      # when "2"
-      #   Reservation.update_guest_count
-      # else
-      #   puts "It appears you made an invalid input"
-      #   Reservation.menu
-      end
-    end
+      Reservation.update_date
+  end
+    
 
     # def self.update_guest_count
     #   puts "Plese enter by ('Id') which Reservation you would like to change."
@@ -88,10 +76,10 @@ class Reservation < ActiveRecord::Base
     #   any_key = gets
     #   Reservation.menu
     # end
+    
     def self.update_date
       puts "Plese enter by ('Id') which Reservation you would like to change."
       id_input = gets.chomp.strip
-
       chosen_reservation = Reservation.find_by(hotel_id: id_input.to_i, user_id: $current_user.id) 
       puts "\nYour current dates for this Reservation are #{chosen_reservation.start_date.strftime('%a %d %b %Y')} - #{chosen_reservation.end_date.strftime('%a %d %b %Y')}\n\n"
       puts "\nPlease input a new START date formated: YYYY-MM-DD\n"
