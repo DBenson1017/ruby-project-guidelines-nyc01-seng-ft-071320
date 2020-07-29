@@ -29,9 +29,9 @@ class Reservation < ActiveRecord::Base
     end
   end
 
-    #################### FIX VIEW FOR PAST/UPCOMING  &  INCLUDE #OF NIGHTS ###############
+    
   def self.reservation_list
-    puts "\n\nHere are all your past & upcoming Reservations:\n\n"
+    puts "\n\nHere are all your Reservations:\n\n"
     $current_user.hotels.reload.each do |r|
       puts "Id: #{r.id}\nName: #{r.name}\nPrice: #{r.price}\nBeds: #{r.beds}\nGuest Count: #{r.guest_amount}\nNeighborhood: #{r.neighborhood}\n\n"
     end
