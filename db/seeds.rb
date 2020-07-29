@@ -26,6 +26,6 @@ User.create(first_name:'Alyssa', last_name:'Edwards', email: "dancingelite@email
 ###### SEEDS FOR RESERVATIONS TABLE #################
 Reservation.create(user_id: User.all[0].id, hotel_id: Hotel.all[4].id, start_date: Date.new(2020,8,13), end_date: Date.new(2020,8,16))
 Reservation.create(user_id: User.all[1].id, hotel_id: Hotel.all[5].id, start_date: Date.new(2020,4,10), end_date: Date.new(2020,4,20))  
-Reservation.create(user_id: User.all[2].id, hotel_id: Hotel.all[5].id, start_date: Date.new(2020,9,14), end_date: Date.new(2020,9,15))
+Reservation.create(user_id: User.all[0].id, hotel_id: Hotel.all[1].id, start_date: Date.new(2020,9,14), end_date: Date.new(2020,9,15))
 Reservation.create(user_id: User.all[3].id, hotel_id: Hotel.all[0].id, start_date: Date.new(2020,1,1), end_date: Date.new(2020,1,3))  
 Reservation.create(user_id: User.all[3].id, hotel_id: Hotel.all[2].id, start_date: Date.new(2020,7,28), end_date: Date.new(2020,8,10))  
