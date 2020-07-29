@@ -1,3 +1,4 @@
+require 'pry'
 Hotel.delete_all
 User.delete_all
 Reservation.delete_all
@@ -9,12 +10,17 @@ response = Unirest.get "https://airbnb-com.p.rapidapi.com/listings/nearby/40.750
     "X-RapidAPI-Key" => ENV['airbnb_key']
   }
 data = response.body
+<<<<<<< HEAD
 
+=======
+# binding.pry
+  
+>>>>>>> hotel_cli_branch
 #######################################
 
 ####### SEEDING THE HOTELS TABLE ######
 data["listings"].each do |listing|
-    Hotel.create(name: listing["listing"]["name"], price: listing['pricing_quote']['price_string'], beds: listing["listing"]["beds"], guest_amount: listing["listing"]["guest_label"], neighborhood: listing["listing"]["localized_neighborhood"])
+    Hotel.create(name: listing["listing"]["name"], price: listing['pricing_quote']['rate']['amount'], beds: listing["listing"]["beds"], guest_amount: listing["listing"]["guest_label"], neighborhood: listing["listing"]["localized_neighborhood"])
 end
 
 ##################SEED FOR USERS#####################
