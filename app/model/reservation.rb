@@ -77,8 +77,12 @@ class Reservation < ActiveRecord::Base
       #### METHOD FROM HOTEL CLASS FOR ALL ACCOMIDATIONS #####
       puts "\nPlease enter the (id) of the Accomidation you would like to make a reservation for.\n"
       h_id = gets.chomp.strip
+      puts "Please enter the date you would like to begin your reservation on formatted START(YYYY,MM,DD)"
+      s_date = gets.chomp.strip
+      puts "Now please enter the date you would like to end your Reservation on formated END (YYYY,MM,DD)"
+      e_date = gets.chomp.strip
       if Hotel.all.include?(h_id.to_i)
-        Reservation.create(user_id: $current_user.id, hotel_id: h_id.to_i)
+        Reservation.create(user_id: $current_user.id, hotel_id: h_id.to_i, start_date: Date.new(s_date), )
       else
         puts "\n\nUh oh. It seems like you input an incorrect (id). Please try again.\n\n"
         Reservation.create_new
