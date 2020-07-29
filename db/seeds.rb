@@ -10,12 +10,8 @@ response = Unirest.get "https://airbnb-com.p.rapidapi.com/listings/nearby/40.750
     "X-RapidAPI-Key" => ENV['airbnb_key']
   }
 data = response.body
-<<<<<<< HEAD
-
-=======
 # binding.pry
   
->>>>>>> hotel_cli_branch
 #######################################
 
 ####### SEEDING THE HOTELS TABLE ######

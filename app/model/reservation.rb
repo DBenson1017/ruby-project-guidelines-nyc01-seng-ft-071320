@@ -39,9 +39,10 @@ class Reservation < ActiveRecord::Base
     any_key = gets 
     Reservation.menu
   end
+  
   def self.reservations_list_by_name_and_id
-    $current_user.hotels.each do |r|
-      puts "Id: #{r.id}\nName: #{r.name}\n\n"
+    $current_user.reservations.reload.each do |r|
+      puts "Id: #{r.id}\nName: #{r.hotel.name}\n\n"
     end
   end
   
@@ -50,11 +51,17 @@ class Reservation < ActiveRecord::Base
     puts "\nHere are all your upcoming Reservations:\n"
     Reservation.reservations_list_by_name_and_id
     puts "Plese enter by ('Id') which Reservation you would like to delete."
-    id_input = gets.chomp.strip
-    res_to_dlt = Reservation.find_by(hotel_id: id_input.to_i)
-    res_to_dlt.destroy
-    puts "     \nReservation deleted.\n\n"
-    Reservation.menu
+    res_id = gets.chomp.strip
+    if Reservation.all.ids.include?(res_id.to_i)
+      res_to_dlt = Reservation.find_by(id: res_id.to_i)
+      res_to_dlt.destroy
+      puts "     \nReservation deleted.\n\n"
+      Reservation.menu
+    else
+      puts "\n\nUh oh. It seems like you input an incorrect (id). Would you like to try again? (Y/N)\n\n"
+      user_input = gets.chomp.strip
+      user_input == "Y" ? Reservation.create_new : Reservation.menu
+    end
   end
   
   def self.reservation_update
@@ -77,15 +84,35 @@ class Reservation < ActiveRecord::Base
     #   Reservation.menu
     # end
     
+    
+    def self.date_check(date)
+      begin  
+        Date.parse(date)
+      rescue ArgumentError
+        puts "Invalid Date. Please try again"
+        Reservation.update_date
+      end
+      num = Date.parse(date) <=> Date.today 
+      if num == -1 || num == 0
+        puts "Invalid Date. New Date must be in the future. Please try again"  
+        Reservation.update_date
+      else
+        puts "Valid Date. Thank you"
+      end
+    end
+
+
     def self.update_date
       puts "Plese enter by ('Id') which Reservation you would like to change."
-      id_input = gets.chomp.strip
-      chosen_reservation = Reservation.find_by(hotel_id: id_input.to_i, user_id: $current_user.id) 
+      res_id_input = gets.chomp.strip
+      chosen_reservation = Reservation.find_by(id: res_id_input.to_i, user_id: $current_user.id)
       puts "\nYour current dates for this Reservation are #{chosen_reservation.start_date.strftime('%a %d %b %Y')} - #{chosen_reservation.end_date.strftime('%a %d %b %Y')}\n\n"
       puts "\nPlease input a new START date formated: YYYY-MM-DD\n"
       new_start_date = gets.chomp.strip
+      Reservation.date_check(new_start_date)
       puts "\nPlease input a new END date formated: YYYY-MM-DD\n"
       new_end_date = gets.chomp.strip
+      Reservation.date_check(new_end_date)
       chosen_reservation.start_date = DateTime.parse(new_start_date)
       chosen_reservation.end_date = DateTime.parse(new_end_date)
       chosen_reservation.save
@@ -125,10 +152,10 @@ class Reservation < ActiveRecord::Base
 end
 
 
+# def self.all_accomidations
+#   Hotel.all.each do |r|
+#   puts "Id: #{r.id}\nName: #{r.name}\nPrice: #{r.price}\nBeds: #{r.beds}\nGuest Count: #{r.guest_amount}\nNeighborhood: #{r.neighborhood}\n\n"
+#   end
+# end
 
-   # def self.all_accomidations
-    #     Hotel.all.each do |r|
-    #         puts "Id: #{r.id}\nName: #{r.name}\nPrice: #{r.price}\nBeds: #{r.beds}\nGuest Count: #{r.guest_amount}\nNeighborhood: #{r.neighborhood}\n\n"
-    #       end
 
-    # end
