@@ -4,11 +4,11 @@ class User < ActiveRecord::Base
 
     #update messages for ease of use 
   # @@user_instance = []
-  def main_menu 
+  def self.main_menu 
     puts "\n\n     MAIN MENU\n\n"
-    puts "To manage your reservations, enter: 1"
-    puts "To see avaialble accomodations, enter: 2"
-    puts "To log out, enter: 'exit' \n\n"
+    puts "To manage your Reservations, Enter: 1"
+    puts "To see avaialble Accomodations, Enter: 2"
+    puts "To log out, Enter: 'exit' \n\n"
     u_input = gets.chomp.strip 
     case u_input 
     when "1" 
@@ -16,10 +16,10 @@ class User < ActiveRecord::Base
     when "2" 
       #go to hotels.all 
     when 'exit' 
-      #log out method 
+      Cli.exit
     else 
       puts "\n\nPlease enter a valid input"
-      main_menu
+      User.main_menu
     end
   end 
 
@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
       User.log_in
     else
       $current_user = User.find_by(email: email_input, password: pw)
-      $current_user.main_menu
+      User.main_menu
       
     end
   end
@@ -55,11 +55,9 @@ class User < ActiveRecord::Base
       puts " "
       #add way to validaite, after we create the Update methods in user 
       # method to take them to main menu
-      main_menu
+      User.main_menu
     end
-    # def self.user_instance
-    #   @@user_instance
-    # end
+
   
 
 

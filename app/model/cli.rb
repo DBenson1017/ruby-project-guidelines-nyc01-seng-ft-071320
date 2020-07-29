@@ -22,5 +22,9 @@ class Cli
     end
   end
 
+  def self.exit
+    puts "\n\nThanks so much for booking with BOOKING: NEW YORK!!\n\n"
+  end
+
 
 end
