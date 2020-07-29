@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2020_07_29_133556) do
+=======
+<<<<<<< HEAD
+ActiveRecord::Schema.define(version: 2020_07_29_133556) do
+=======
+ActiveRecord::Schema.define(version: 2020_07_28_205351) do
+>>>>>>> 2abdc30f744e07bf215890725088c51fafddac1c
+>>>>>>> git_troublefix
 
   create_table "hotels", force: :cascade do |t|
     t.string "name"
