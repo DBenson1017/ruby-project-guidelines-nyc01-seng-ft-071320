@@ -29,11 +29,13 @@ class Reservation < ActiveRecord::Base
     end
   end
 
+    #################### FIX VIEW FOR PAST/UPCOMING  &  INCLUDE #OF NIGHTS ###############
   def self.reservation_list
-    puts "\n\nHere are all your current Reservations:\n\n"
+    puts "\n\nHere are all your past & upcoming Reservations:\n\n"
     $current_user.hotels.reload.each do |r|
       puts "Id: #{r.id}\nName: #{r.name}\nPrice: #{r.price}\nBeds: #{r.beds}\nGuest Count: #{r.guest_amount}\nNeighborhood: #{r.neighborhood}\n\n"
     end
+
     puts "Press anything to return to the Reservation Menu."
     any_key = gets 
     Reservation.menu
