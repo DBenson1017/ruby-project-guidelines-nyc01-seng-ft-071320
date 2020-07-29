@@ -5,9 +5,6 @@ class Hotel < ActiveRecord::Base
     has_many :reservations 
     has_many :users, through: :reservations 
 
-
-
-
     ################CLI##############
     #When user wants to see available accomodations 
     # def accomodations_search 
@@ -31,15 +28,19 @@ class Hotel < ActiveRecord::Base
     #     when '5'
     #     when '6'
 
+
+
+    
 #neighborhood searches             
 def self.neighorhood_cli
-    puts "To see a list of available neighborhoods, press 1"
-    puts "To search by a specific neighborhood, press 2"
-    puts 'Press 3 to return to the main menu.'
+    puts "To see a list of available neighborhoods, press 1" #status 
+    puts "To search by a specific neighborhood, press 2" #status 
+    puts 'Press 3 to return to the main menu.' #status 
     u_input = gets.chomp.strip 
     case u_input
     when '1'
-        Hotel.all_neighborhoods
+        puts Hotel.all_neighborhoods
+        Hotel.neighborhood_cli
         #how do they go back?
     when '2'
         puts "Please enter the neighboohood you are interested in."
@@ -48,6 +49,12 @@ def self.neighorhood_cli
     when '3'
         #return to main menu 
     end 
+end 
+
+def self.all_neighborhoods
+    neighborhoods = []
+    Hotel.all.select {|hotel| neighborhoods << hotel.neighborhood}
+    neighborhoods.uniq.compact
 end 
 
 #bed searches 
@@ -63,15 +70,6 @@ end
 
 
 
-
-    ########by neighborhood 
-
-    def self.all_neighborhoods
-        neighborhoods = []
-        Hotel.all.select {|hotel| neighborhoods << hotel.neighborhood}
-        neighborhoods.uniq.compact
-    end 
-
 #USBAT see all accomodations by location 
 #edit to return a list of neighorhoods, edit for CLI appearance 
     def self.location_search(neighborhood) 
@@ -81,9 +79,22 @@ end
     end 
 
 
-    def see_all_hotels
-        Hotels.all
+    def self.see_all_hotels
+        Hotel.all.each do |h|
+            puts "ID: #{h.id}\n
+            Name: #{h.name}\n
+            Price: #{h.price}\n
+            Beds: #{h.beds}\n
+            Guest Count: #{h.guest_amount}\n
+            Neighborhood: #{h.neighborhood}"
+        end 
+
     end 
+
+    puts "\n\nHere are all your Reservations:\n\n"
+    #     $current_user.hotels.reload.each do |r|
+    #       puts "Id: #{r.id}\nName: #{r.name}\nPrice: #{r.price}\nBeds: #{r.beds}\nGuest Count: #{r.guest_amount}\nNeighborhood: #{r.neighborhood}\n\n"
+    #     end
 
 
 
