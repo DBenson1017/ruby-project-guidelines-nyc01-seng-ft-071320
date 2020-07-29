@@ -6,9 +6,9 @@ class User < ActiveRecord::Base
   # @@user_instance = []
   def self.main_menu 
     puts "\n\n     MAIN MENU\n\n"
-    puts "To manage your Reservations, Enter: 1"
-    puts "To see avaialble Accomodations, Enter: 2"
-    puts "To log out, Enter: 'exit' \n\n"
+    puts "To manage Reservations, Enter: 1"
+    puts "To view avaialble Accomodations, Enter: 2"
+    puts "To exit, Enter: 'exit' \n\n"
     u_input = gets.chomp.strip 
     case u_input 
     when "1" 
@@ -35,32 +35,23 @@ class User < ActiveRecord::Base
     else
       $current_user = User.find_by(email: email_input, password: pw)
       User.main_menu
-      
     end
   end
     
   def self.sign_up
-      puts "Please input your first name:"
-      first = gets.chomp.strip
-      puts "Please input your last name:"
-      last = gets.chomp.strip
-      puts "Please input your email:" 
-      user_email = gets.chomp.strip
-      puts "Lastly, please create a password!"
-      pw = gets.chomp.strip
+    puts "Please input your first name:"
+    first = gets.chomp.strip
+    puts "Please input your last name:"
+    last = gets.chomp.strip
+    puts "Please input your email:" 
+    user_email = gets.chomp.strip
+    puts "Lastly, please create a password!"
+    pw = gets.chomp.strip
       
-      $current_user = User.create(first_name: first, last_name: last, email: user_email, password: pw)
-      puts "Thank you #{first} for signing up for BOOKING: NEW YORK!!"
-      puts "Enjoy your first trip!"
-      puts " "
-      #add way to validaite, after we create the Update methods in user 
-      # method to take them to main menu
-      User.main_menu
+    $current_user = User.create(first_name: first, last_name: last, email: user_email, password: pw)
+    puts "Thank you #{first} for signing up for BOOKING: NEW YORK!!\n\nEnjoy your first trip!\n\n"
+    User.main_menu
     end
-
-  
-
-
 
 end
 
