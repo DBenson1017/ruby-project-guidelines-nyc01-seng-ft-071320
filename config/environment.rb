@@ -1,7 +1,7 @@
 require 'bundler'
 require 'pry'
 require 'dotenv/load'
-#require 'date'
+
 Bundler.require
 
 require_all 'app/model'

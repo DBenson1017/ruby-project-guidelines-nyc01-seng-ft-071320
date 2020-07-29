@@ -25,7 +25,7 @@ class Reservation < ActiveRecord::Base
       Cli.exit
     else
       puts "Please enter a valid number\n\n"
-    .menu
+      Reservation.menu
     end
   end
 
@@ -44,6 +44,7 @@ class Reservation < ActiveRecord::Base
       puts "Id: #{r.id}\nName: #{r.name}\n\n"
     end
   end
+  
 
   def self.reservation_delete
     puts "\nHere are all your upcoming Reservations:\n"
@@ -72,23 +73,22 @@ class Reservation < ActiveRecord::Base
       end
     end
 
-    def self.update_guest_count
-      puts "Plese enter by ('Id') which Reservation you would like to change."
-      id_input = gets.chomp.strip
-      chosen_accom = Hotel.find_by(id: id_input.to_i)  
-      puts "The guest count is currently #{chosen_accom.guest_amount}.\nPlease input the number of guests you would like to change it to."
-      new_guest_total = gets.chomp.strip
-      chosen_accom.guest_amount = new_guest_total
-      chosen_accom.save
-      puts "\n\nYour change has been saved.\nPress any key to return to the Reservations Menu.\n"
-      any_key = gets
-      Reservation.menu
-    end
-
+    # def self.update_guest_count
+    #   puts "Plese enter by ('Id') which Reservation you would like to change."
+    #   id_input = gets.chomp.strip
+    #   chosen_accom = Hotel.find_by(id: id_input.to_i)  
+    #   puts "The guest count is currently #{chosen_accom.guest_amount}.\nPlease input the number of guests you would like to change it to."
+    #   new_guest_total = gets.chomp.strip
+    #   chosen_accom.guest_amount = new_guest_total
+    #   chosen_accom.save
+    #   puts "\n\nYour change has been saved.\nPress any key to return to the Reservations Menu.\n"
+    #   any_key = gets
+    #   Reservation.menu
+    # end
     def self.update_date
       puts "Plese enter by ('Id') which Reservation you would like to change."
       id_input = gets.chomp.strip
-      # chosen_accom = Hotel.find_by(id: id_input.to_i)
+
       chosen_reservation = Reservation.find_by(hotel_id: id_input.to_i, user_id: $current_user.id) 
       puts "\nYour current dates for this Reservation are #{chosen_reservation.start_date.strftime('%a %d %b %Y')} - #{chosen_reservation.end_date.strftime('%a %d %b %Y')}\n\n"
       puts "\nPlease input a new START date formated: YYYY-MM-DD\n"
@@ -99,7 +99,7 @@ class Reservation < ActiveRecord::Base
       chosen_reservation.end_date = DateTime.parse(new_end_date)
       chosen_reservation.save
       puts "\n\nYour changes have been saved.\nPress any key to return to the Reservations Menu.\n"
-      any_key = gets
+      a1
       Reservation.menu
     end
 
@@ -119,12 +119,7 @@ class Reservation < ActiveRecord::Base
       else
         puts "\n\nUh oh. It seems like you input an incorrect (id). Would you like to try again? (Y/N)\n\n"
         user_input = gets.chomp.strip
-        case user_input
-        when "Y"
-          Reservation.create_new
-        else
-          Reservation.menu
-        end
+        user_input == "Y" ? Reservation.create_new : Reservation.menu
       end
     end
   
@@ -137,3 +132,12 @@ class Reservation < ActiveRecord::Base
   
 
 end
+
+
+
+   # def self.all_accomidations
+    #     Hotel.all.each do |r|
+    #         puts "Id: #{r.id}\nName: #{r.name}\nPrice: #{r.price}\nBeds: #{r.beds}\nGuest Count: #{r.guest_amount}\nNeighborhood: #{r.neighborhood}\n\n"
+    #       end
+
+    # end
