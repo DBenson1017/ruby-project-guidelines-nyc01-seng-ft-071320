@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
     u_input = gets.chomp.strip 
     case u_input 
     when "1" 
-      Reservation.reservations_menu
+      Reservation.menu
     when "2" 
       #go to hotels.all 
     when 'exit' 

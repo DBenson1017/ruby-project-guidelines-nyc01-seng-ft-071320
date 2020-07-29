@@ -9,7 +9,7 @@ response = Unirest.get "https://airbnb-com.p.rapidapi.com/listings/nearby/40.750
     "X-RapidAPI-Key" => ENV['airbnb_key']
   }
 data = response.body
-  
+
 #######################################
 
 ####### SEEDING THE HOTELS TABLE ######
@@ -24,7 +24,7 @@ User.create(first_name:'Juju', last_name:'Bee', email: "runnerup@email.com", pas
 User.create(first_name:'Alyssa', last_name:'Edwards', email: "dancingelite@email.com", password: "1011")
 
 ###### SEEDS FOR RESERVATIONS TABLE #################
-Reservation.create(user_id: User.all[1].id, hotel_id: Hotel.all[4].id)
+Reservation.create(user_id: User.all[0].id, hotel_id: Hotel.all[4].id)
 Reservation.create(user_id: User.all[1].id, hotel_id: Hotel.all[5].id)  
 Reservation.create(user_id: User.all[2].id, hotel_id: Hotel.all[5].id)
 Reservation.create(user_id: User.all[3].id, hotel_id: Hotel.all[0].id)  
