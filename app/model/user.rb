@@ -13,11 +13,7 @@ class User < ActiveRecord::Base
     when "1" 
       Reservation.menu
     when "2" 
-<<<<<<< HEAD
       Hotel.accomodations_search 
-=======
-      Hotel.accomodations_search
->>>>>>> 0a96660e9988e3818a859f50cffd040486d586ab
     when 'exit' 
       Cli.exit
     else 

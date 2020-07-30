@@ -19,17 +19,6 @@ class Hotel < ActiveRecord::Base
         any_key = STDIN.gets
         Hotel.accomodations_search  
     end 
-
-
-    # def self.neighborhood_cli
-    #     # puts "Please enter the neighborhood you are interested in from the list above."
-    #     # u_input = STDIN.gets.chomp.strip 
-    #     puts Hotel.location_search
-    #     puts "Press any key to return to the accomodations menu."
-    #     any_key = STDIN.gets
-    #     Hotel.accomodations_search 
-    # end 
-
  
     def self.all_neighborhoods 
         neighborhoods = []
@@ -167,12 +156,10 @@ class Hotel < ActiveRecord::Base
 
 #user option 5 - by price 
 def self.price_cli 
-    puts "Here you can search for accomodations within your budget."
-    puts ''
-    puts "What is the least amount you want to pay per night (ex. 100)?"
+    puts "\n\nSearch Accomodations by price range.\n"
+    puts "What is your Minimum Amount:\n"
     min = STDIN.gets.chomp.strip 
-    puts ''
-    puts "What is the most you want to pay per night (ex. 200)?"
+    puts "What is the your Maximum:\n"
     max = STDIN.gets.chomp.strip 
     puts Hotel.budget_search(min, max)
     puts "Press any key to return to the accomodations menu."
@@ -180,29 +167,48 @@ def self.price_cli
     Hotel.accomodations_search 
 end 
 
-def self.budget_search(min, max) 
-    min = min.to_i
-    max = max.to_i
-    results = []
-    results = Hotel.all.select do |h|
-    if h.price < max && h.price > min 
-        puts "ID: #{h.id}
-        Name: #{h.name}
-        Price: #{h.price}
-        Beds: #{h.beds}
-        Guest Count: #{h.guest_amount}
-        Neighborhood: #{h.neighborhood}\n"
-       end 
-    end 
-    if results.count == 0 
-        puts "We're sorry, there are no accomodations that match that criteria."
-        puts 'press 1 to start a new search'
-       end 
-        input = STDIN.gets.chomp.strip 
-        if input == '1'
-            Hotel.price_cli 
+    def self.budget_search(min, max) 
+        min = min.to_i
+        max = max.to_i
+        results = []
+        Hotel.all.each do |h|
+            if h.price < max && h.price > min  
+                results << h
+            end
         end 
-end 
+        if results.count != 0
+            results.each do |h|       
+                puts "ID: #{h.id}
+                    Name: #{h.name}
+                    Price: #{h.price}
+                    Beds: #{h.beds}
+                    Guest Count: #{h.guest_amount}
+                    Neighborhood: #{h.neighborhood}\n"
+            end
+            Hotel.book_accomidation_by_price_range
+        else    
+            puts "Sorry there are no Accomodations that match your Price Range.\n"
+            Hotel.price_cli
+        end
+    end 
+
+    def self.book_accomidation_by_price_range
+        puts "\nIf you would like to make a Reservation for any of these Accomidations (1)\nIf you would like to make another search by Price Range (2)\nAccomidations Menu (3)\n"
+        new_choice = gets.chomp.strip
+        case new_choice
+        when "1"
+            Reservation.create_new
+        when "2"
+            Hotel.price_cli
+        when "3"
+            Hotel.accomodations_search
+        else
+            puts "Invalid input. Please choose one of the options listed."
+            Hotel.book_accomidation_by_guest_amt
+        end
+    end
+
+
 
    #accomodations main menu 
    def Hotel.accomodations_search 
