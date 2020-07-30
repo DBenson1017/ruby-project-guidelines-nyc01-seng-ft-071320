@@ -4,20 +4,20 @@ class User < ActiveRecord::Base
 
 
   def self.main_menu 
-    puts "\n\n\n     MAIN MENU\n\n"
-    puts "To manage Reservations, Enter: 1"
-    puts "To view avaialble Accomodations, Enter: 2"
-    puts "To exit, Enter: 'exit' \n\n\n"
+    puts "\n\n\n                        --MAIN MENU--\n\n"
+    puts "(1)            To manage RESERVATIONS"
+    puts "(2)   To view avaialble ACCOMODATIONS"
+    puts "(3)                           To EXIT\n\n\n"
     u_input = gets.chomp.strip 
     case u_input 
     when "1" 
       Reservation.menu
     when "2" 
       Hotel.accomodations_search 
-    when 'exit' 
+    when "3" 
       Cli.exit
     else 
-      puts "\n\nPlease Enter a valid input"
+      puts "\nPlease Enter a valid input"
       User.main_menu
     end
   end 

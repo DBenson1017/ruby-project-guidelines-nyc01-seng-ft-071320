@@ -3,11 +3,11 @@ class Cli
 
 
   def self.begin
-    puts "\nWelcome to BOOKING: NEW YORK\n\n"
-    # puts " "
-    puts "A simple and easy way to book accomidations in New York City\n\n"
-    # puts " "
-    puts "To login in type 'log in' to sign up type 'sign up'\n\n"
+    puts "\n              --Welcome to BOOKING: NEW YORK--\n\n"
+
+    puts "A simple and easy way to book Accomodations in New York City\n\n"
+
+    puts "     To LOG IN type 'log in' to SIGN UP type 'sign up'\n\n"
     u_response = gets.chomp.downcase.strip
     case u_response
     when 'log in'
@@ -23,7 +23,7 @@ class Cli
   end
 
   def self.exit
-    puts "\n\nThanks so much for booking with BOOKING: NEW YORK!!\n\n"
+    puts "\n\nThank you so much for using BOOKING: NEW YORK!!\n\n"
   end
 
 
