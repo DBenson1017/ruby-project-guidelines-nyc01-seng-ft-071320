@@ -70,44 +70,14 @@ class Reservation < ActiveRecord::Base
       Reservation.update_date
   end
     
-
-    # def self.update_guest_count
-    #   puts "Plese enter by ('Id') which Reservation you would like to change."
-    #   id_input = gets.chomp.strip
-    #   chosen_accom = Hotel.find_by(id: id_input.to_i)  
-    #   puts "The guest count is currently #{chosen_accom.guest_amount}.\nPlease input the number of guests you would like to change it to."
-    #   new_guest_total = gets.chomp.strip
-    #   chosen_accom.guest_amount = new_guest_total
-    #   chosen_accom.save
-    #   puts "\n\nYour change has been saved.\nPress any key to return to the Reservations Menu.\n"
-    #   any_key = gets
-    #   Reservation.menu
-    # end
     
-    
-<<<<<<< HEAD
-    def self.date_update_check(date)
-=======
     def self.valid_start_date
       puts "\nPlease input a START date formated: YYYY-MM-DD\n"
       @new_start_date = gets.chomp.strip
->>>>>>> clean_up
       begin  
         Date.parse(@new_start_date)
       rescue ArgumentError
         puts "Invalid Date. Please try again"
-<<<<<<< HEAD
-        ############### FIX ###############
-        Reservation.update_date
-      end
-      num = Date.parse(date) <=> Date.today 
-      if num == -1 || num == 0
-        puts "Invalid Date. New Date must be in the future. Please try again"  
-        ##################################
-        Reservation.update_date
-      # else
-      #   puts "Valid Date. Thank you"
-=======
         Reservation.valid_start_date
       end
       upcoming = Date.parse(@new_start_date) <=> Date.today 
@@ -133,7 +103,6 @@ class Reservation < ActiveRecord::Base
       elsif after_start == -1 || after_start == 0
         puts "END Date must be after START date."
         Reservation.valid_end_date
->>>>>>> clean_up
       end
     end
 
@@ -143,46 +112,14 @@ class Reservation < ActiveRecord::Base
       res_id_input = gets.chomp.strip
       chosen_reservation = Reservation.find_by(id: res_id_input.to_i, user_id: $current_user.id)
       puts "\nYour current dates for this Reservation are #{chosen_reservation.start_date.strftime('%a %d %b %Y')} - #{chosen_reservation.end_date.strftime('%a %d %b %Y')}\n\n"
-<<<<<<< HEAD
-      
-      #puts "\nPlease input a new START date formated: YYYY-MM-DD\n"
-      new_start_date = Reservation.start_date
-      #Reservation.date_check(new_start_date)
-      puts "\nPlease input a new END date formated: YYYY-MM-DD\n"
-      new_end_date = gets.chomp.strip
-      Reservation.date_check(new_end_date)
-      chosen_reservation.start_date = DateTime.parse(new_start_date)
-      chosen_reservation.end_date = DateTime.parse(new_end_date)
-=======
       Reservation.valid_start_date
       Reservation.valid_end_date
       chosen_reservation.start_date = DateTime.parse(@new_start_date)
       chosen_reservation.end_date = DateTime.parse(@new_end_date)
->>>>>>> clean_up
       chosen_reservation.save
       puts "\n\nYour changes have been saved.\nPress any key to return to the Reservations Menu.\n"
       any_key = gets
       Reservation.menu
-    end
-
-    def self.start_date(date)
-      puts "\nPlease input a START date formated: YYYY-MM-DD\n"
-      start_date = gets.chomp.strip
-      begin  
-        Date.parse(date)
-      rescue ArgumentError
-        puts "Invalid Date. Please try again"
-        Reservation.start_date(date)
-      end
-      num = Date.parse(date) <=> Date.today 
-      
-        if num == -1 || num == 0
-          puts "Invalid Date. New Date must be in the future. Please try again"  
-          ##################################
-          Reservation.update_date
-        end
-      end
-
     end
 
     def self.create_new
@@ -190,17 +127,8 @@ class Reservation < ActiveRecord::Base
       Hotel.all_accomidations
       puts "\nPlease enter the (id) of the Accomidation you would like to make a reservation for.\n"
       h_id = gets.chomp.strip
-<<<<<<< HEAD
-      puts "Please enter the date you would like to begin your Reservation formatted START: YYYY-MM-DD"
-      s_date = gets.chomp.strip
-      Reservation.date_check(s_date)
-      puts "Now please enter the date you would like to end your Reservation on formated END: YYYY-MM-DD"
-      e_date = gets.chomp.strip
-      Reservation.date_check(end_date)
-=======
       Reservation.valid_start_date
       Reservation.valid_end_date
->>>>>>> clean_up
       if Hotel.all.ids.include?(h_id.to_i)
         Reservation.create(user_id: $current_user.id, hotel_id: h_id, start_date: DateTime.parse(@new_start_date), end_date: DateTime.parse(@new_end_date))
         puts "\nYour Reservation has been made!"
@@ -223,10 +151,10 @@ class Reservation < ActiveRecord::Base
 end
 
 
-def self.all_accomidations
-  Hotel.all.each do |r|
-  puts "Id: #{r.id}\nName: #{r.name}\nPrice: #{r.price}\nBeds: #{r.beds}\nGuest Count: #{r.guest_amount}\nNeighborhood: #{r.neighborhood}\n\n"
-  end
-end
+# def self.all_accomidations
+#   Hotel.all.each do |r|
+#   puts "Id: #{r.id}\nName: #{r.name}\nPrice: #{r.price}\nBeds: #{r.beds}\nGuest Count: #{r.guest_amount}\nNeighborhood: #{r.neighborhood}\n\n"
+#   end
+# end
 
 
