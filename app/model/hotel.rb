@@ -106,15 +106,28 @@ end
                 Guest Count: #{h.guest_amount}
                 Neighborhood: #{h.neighborhood}\n"
             end
-            ####################### MAKE OPTION TO RESERVE ###########################
-            puts "Enter any key to return to the Accomidations Menu"
-            any = gets
-            Hotel.accomodations_search
+            Hotel.book_accomidation_by_guest_amt 
         else
             puts "\nWere sorry. We don't have an accomidations avaliable for #{input}.\n"
             Hotel.accomodations_search
         end
     end 
+
+    def self.book_accomidation_by_guest_amt
+        puts "\nIf you would like to make a Reservation for any of these Accomidations Enter: 1\n \nAccomidations Menu (3)\n"
+        new_choice = gets.chomp.strip
+        case new_choice
+        when "1"
+            Reservation.create_new
+        when "2"
+            Hotel.guest_amount_cli
+        when "3"
+            Hotel.accomodations_search
+        else
+            puts "Invalid input. Please choose one of the options listed."
+            Hotel.book_accomidation_by_guest_amt
+        end
+    end
 
 
 #user option 5 - by price 

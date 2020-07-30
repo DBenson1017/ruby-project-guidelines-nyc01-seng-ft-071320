@@ -18,6 +18,8 @@ class Reservation < ActiveRecord::Base
     when "3"
       $current_user.reservations != [] ? Reservation.reservation_delete : Reservation.uh_oh
     when "4"
+      puts "\n\nHere is a list of all avaliable Accomidations:\n\n"
+      Hotel.all_accomidations
       Reservation.create_new
     when "5"
       User.main_menu
@@ -120,8 +122,8 @@ class Reservation < ActiveRecord::Base
 
 
   def self.create_new
-    puts "\n\nHere is a list of all avaliable Accomidations:\n\n"
-    Hotel.all_accomidations
+    # puts "\n\nHere is a list of all avaliable Accomidations:\n\n"
+    # Hotel.all_accomidations
     puts "\nPlease Enter the (id) of the Accomidation you would like to make a reservation for.\n"
     h_id = gets.chomp.strip
     Reservation.valid_start_date
