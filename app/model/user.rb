@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
     when "1" 
       Reservation.menu
     when "2" 
-      #go to hotels.all 
+      Hotel.accomodations_search 
     when 'exit' 
       Cli.exit
     else 
