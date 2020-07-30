@@ -114,7 +114,7 @@ end
     end 
 
     def self.book_accomidation_by_guest_amt
-        puts "\nIf you would like to make a Reservation for any of these Accomidations Enter: 1\n \nAccomidations Menu (3)\n"
+        puts "\nIf you would like to make a Reservation for any of these Accomidations (1)\nIf you would like to make another search by Guest Amount (2)\nAccomidations Menu (3)\n"
         new_choice = gets.chomp.strip
         case new_choice
         when "1"
