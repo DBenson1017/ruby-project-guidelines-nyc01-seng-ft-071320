@@ -106,6 +106,7 @@ end
                 Guest Count: #{h.guest_amount}
                 Neighborhood: #{h.neighborhood}\n"
             end
+            ####################### MAKE OPTION TO RESERVE ###########################
             puts "Enter any key to return to the Accomidations Menu"
             any = gets
             Hotel.accomodations_search
