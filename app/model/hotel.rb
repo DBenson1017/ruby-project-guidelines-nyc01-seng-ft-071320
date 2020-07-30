@@ -40,6 +40,7 @@ def self.all_neighborhoods
     neighborhoods = []
     Hotel.all.select {|hotel| neighborhoods << hotel.neighborhood}
     puts neighborhoods.uniq.compact 
+    neighborhoods.uniq.compact
 end 
 
 #searches accomodations by neighborhood name 
@@ -84,32 +85,36 @@ end
 
 #user option 4 - by guest capacity 
 #status: needs exit CLI path  
+    def self.all_guest_amounts
+        all_guest_amts_array = []
+        Hotel.all.each {|h| all_guest_amts_array << h.guest_amount}
+        all_guest_amts_array
+    end
 
-# any_key = STDIN.gets
+
 # Hotel.accomodations_search 
-def self.guest_amount_cli #works 
-        puts "Please enter the amount of guests you would like to seach for."
+    def self.guest_amount_cli 
+        puts "Please Enter the Guest Amount formated: '__ guest(s)'"
         input = STDIN.gets.chomp.strip 
-        Hotel.capacity_search(input)
-        end 
+        if Hotel.all_guest_amounts.include?(input)
+            result = Hotel.all.where(guest_amount: input)
+            result.each do |h|
+                puts "ID: #{h.id}
+                Name: #{h.name}
+                Price: #{h.price}
+                Beds: #{h.beds}
+                Guest Count: #{h.guest_amount}
+                Neighborhood: #{h.neighborhood}\n"
+            end
+            puts "Enter any key to return to the Accomidations Menu"
+            any = gets
+            Hotel.accomodations_search
+        else
+            puts "\nWere sorry. We don't have an accomidations avaliable for #{input}.\n"
+            Hotel.accomodations_search
+        end
+    end 
 
-def self.capacity_search(number) 
-    if number == '1'
-    input = "#{number}"+" guest"
-    else 
-        input = "#{number}"+" guests"
-    end 
-    Hotel.all.select do |h|
-       if h.guest_amount == input  
-        puts "ID: #{h.id}\n
-        Name: #{h.name}\n
-        Price: #{h.price}\n
-        Beds: #{h.beds}\n
-        Guest Count: #{h.guest_amount}\n
-        Neighborhood: #{h.neighborhood}"
-       end 
-    end 
-end 
 
 #user option 5 - by price 
 #status: exit and new search CLI path 
@@ -151,7 +156,7 @@ end
 
 
    #accomodations main menu 
-   def Hotel.accomodations_search 
+   def self.accomodations_search 
     puts 'Welcome! Here you can search our available accomodations.'
     puts ' '
     puts 'To see all accomodations, press 1'
