@@ -4,20 +4,24 @@ class User < ActiveRecord::Base
 
 
   def self.main_menu 
-    puts "\n\n     MAIN MENU\n\n"
+    puts "\n\n\n     MAIN MENU\n\n"
     puts "To manage Reservations, Enter: 1"
     puts "To view avaialble Accomodations, Enter: 2"
-    puts "To exit, Enter: 'exit' \n\n"
+    puts "To exit, Enter: 'exit' \n\n\n"
     u_input = gets.chomp.strip 
     case u_input 
     when "1" 
       Reservation.menu
     when "2" 
+<<<<<<< HEAD
       Hotel.accomodations_search 
+=======
+      Hotel.accomodations_search
+>>>>>>> 0a96660e9988e3818a859f50cffd040486d586ab
     when 'exit' 
       Cli.exit
     else 
-      puts "\n\nPlease enter a valid input"
+      puts "\n\nPlease Enter a valid input"
       User.main_menu
     end
   end 
@@ -50,7 +54,7 @@ class User < ActiveRecord::Base
     $current_user = User.create(first_name: first, last_name: last, email: user_email, password: pw)
     puts "Thank you #{first} for signing up for BOOKING: NEW YORK!!\n\nEnjoy your first trip!\n\n"
     User.main_menu
-    end
+  end
 
 end
 

@@ -19,6 +19,7 @@ class Hotel < ActiveRecord::Base
         any_key = STDIN.gets
         Hotel.accomodations_search  
     end 
+<<<<<<< HEAD
 
 
     # def self.neighborhood_cli
@@ -68,6 +69,34 @@ class Hotel < ActiveRecord::Base
     end 
 
     #user option 3 - by beds
+=======
+    puts "Press any key to return to the main menu."
+    any_key = STDIN.gets
+    Hotel.accomodations_search 
+end 
+
+#user option 2 - neighborhood searches    
+#status: needs exit CLI path  
+# any_key = STDIN.gets
+# Hotel.accomodations_search        
+
+#puts the array of available neighborhoods 
+def self.neighborhood_cli
+    puts Hotel.all_neighborhoods 
+    puts "Please enter the neighborhood you are interested in from the list above."
+    u_input = STDIN.gets.chomp.strip 
+    puts Hotel.location_search(u_input) 
+    #exit path?
+end 
+
+#shows available neighbnorhoods 
+def self.all_neighborhoods 
+    neighborhoods = []
+    Hotel.all.select {|hotel| neighborhoods << hotel.neighborhood}
+    puts neighborhoods.uniq.compact 
+    neighborhoods.uniq.compact
+end 
+>>>>>>> 0a96660e9988e3818a859f50cffd040486d586ab
 
     def self.all_beds
         beds = []
@@ -118,6 +147,7 @@ class Hotel < ActiveRecord::Base
 
     
 
+<<<<<<< HEAD
 
 #user option 4 - by guest capacity 
 def self.guest_amount_cli 
@@ -153,8 +183,54 @@ def self.capacity_search(number)
         if input == '1'
             Hotel.guest_amount_cli 
         end 
+=======
+#user option 4 - by guest capacity 
+#status: needs exit CLI path  
+    def self.all_guest_amounts
+        all_guest_amts_array = []
+        Hotel.all.each {|h| all_guest_amts_array << h.guest_amount}
+        all_guest_amts_array
+    end
+
+
+# Hotel.accomodations_search 
+    def self.guest_amount_cli 
+        puts "Please Enter the Guest Amount formated: '__ guest(s)'"
+        input = STDIN.gets.chomp.strip 
+        if Hotel.all_guest_amounts.include?(input)
+            result = Hotel.all.where(guest_amount: input)
+            result.each do |h|
+                puts "ID: #{h.id}
+                Name: #{h.name}
+                Price: #{h.price}
+                Beds: #{h.beds}
+                Guest Count: #{h.guest_amount}
+                Neighborhood: #{h.neighborhood}\n"
+            end
+            Hotel.book_accomidation_by_guest_amt 
+        else
+            puts "\nWere sorry. We don't have an accomidations avaliable for #{input}.\n"
+            Hotel.accomodations_search
+        end
+>>>>>>> 0a96660e9988e3818a859f50cffd040486d586ab
     end 
-end 
+
+    def self.book_accomidation_by_guest_amt
+        puts "\nIf you would like to make a Reservation for any of these Accomidations (1)\nIf you would like to make another search by Guest Amount (2)\nAccomidations Menu (3)\n"
+        new_choice = gets.chomp.strip
+        case new_choice
+        when "1"
+            Reservation.create_new
+        when "2"
+            Hotel.guest_amount_cli
+        when "3"
+            Hotel.accomodations_search
+        else
+            puts "Invalid input. Please choose one of the options listed."
+            Hotel.book_accomidation_by_guest_amt
+        end
+    end
+
 
 #user option 5 - by price 
 def self.price_cli 
@@ -196,10 +272,17 @@ def self.budget_search(min, max)
 end 
 
    #accomodations main menu 
+<<<<<<< HEAD
    def Hotel.accomodations_search 
     puts 'ACCOMODATIONS SEARCH'
     puts '____________________ '
     puts 'To see ALL ACCOMODATIONS, press 1'
+=======
+   def self.accomodations_search 
+    puts 'Welcome! Here you can search our available accomodations.'
+    puts ' '
+    puts 'To see all accomodations, press 1'
+>>>>>>> 0a96660e9988e3818a859f50cffd040486d586ab
     puts " "
     puts 'To search by:' 
     puts ''
@@ -225,6 +308,19 @@ end
         User.main_menu    
 end 
 end
+
+    def self.all_accomidations
+        Hotel.all.each do |r|
+        puts "Id: #{r.id}\nName: #{r.name}\nPrice: #{r.price}\nBeds: #{r.beds}\nGuest Count: #{r.guest_amount}\nNeighborhood: #{r.neighborhood}\n\n"
+        end
+    end
+
+
+
+
+
+
+
 end 
 
 
