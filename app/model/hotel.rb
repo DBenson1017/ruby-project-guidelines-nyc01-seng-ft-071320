@@ -5,129 +5,119 @@ class Hotel < ActiveRecord::Base
     has_many :reservations 
     has_many :users, through: :reservations 
 
-#user option 1 - see all accomodations 
-def self.all_hotels
-    Hotel.all.each do |h|
-        puts "ID: #{h.id}
-        Name: #{h.name}
-        Price: #{h.price}
-        Beds: #{h.beds}
-        Guest Count: #{h.guest_amount}
-        Neighborhood: #{h.neighborhood}\n"
+    #user option 1 - see all accomodations 
+    def self.all_hotels
+        Hotel.all.each do |h|
+            puts "ID: #{h.id}
+            Name: #{h.name}
+            Price: #{h.price}
+            Beds: #{h.beds}
+            Guest Count: #{h.guest_amount}
+            Neighborhood: #{h.neighborhood}\n"
+        end 
+        puts "Press any key to return to the accomodations menu."
+        any_key = STDIN.gets
+        Hotel.accomodations_search  
     end 
-    puts "Press any key to return to the accomodations menu."
-    any_key = STDIN.gets
-    Hotel.accomodations_search 
-end 
 
 
-# def self.neighborhood_cli
-#     # puts "Please enter the neighborhood you are interested in from the list above."
-#     # u_input = STDIN.gets.chomp.strip 
-#     puts Hotel.location_search
-#     puts "Press any key to return to the accomodations menu."
-#     any_key = STDIN.gets
-#     Hotel.accomodations_search 
-# end 
+    # def self.neighborhood_cli
+    #     # puts "Please enter the neighborhood you are interested in from the list above."
+    #     # u_input = STDIN.gets.chomp.strip 
+    #     puts Hotel.location_search
+    #     puts "Press any key to return to the accomodations menu."
+    #     any_key = STDIN.gets
+    #     Hotel.accomodations_search 
+    # end 
 
  
-def self.all_neighborhoods 
-    neighborhoods = []
-    Hotel.all.select {|hotel| neighborhoods << hotel.neighborhood}
-    puts neighborhoods.uniq.compact 
-    neighborhoods.uniq.compact
-end 
+    def self.all_neighborhoods 
+        neighborhoods = []
+        Hotel.all.select {|hotel| neighborhoods << hotel.neighborhood}
+        puts neighborhoods.uniq.compact 
+        neighborhoods.uniq.compact
+    end 
 
-#user option 2 - neighborhood searches 
-#searches accomodations by neighborhood name 
-def self.location_search
-    Hotel.all_neighborhoods 
-    puts "Please enter the neighborhood you are interested in from the list above."
-    u_input = STDIN.gets.chomp.strip 
-   if Hotel.all_neighborhoods.include? (u_input)
-        Hotel.all.select do |h|
-       if h.neighborhood == u_input
-        puts "ID: #{h.id}\n
-        Name: #{h.name}\n
-        Price: #{h.price}\n
-        Beds: #{h.beds}\n
-        Guest Count: #{h.guest_amount}\n
-        Neighborhood: #{h.neighborhood}"
-         end 
-        end
-         puts 'press 1 to start a new search'
-         input = STDIN.gets.chomp.strip 
-    #      if input == '1'
-    #          Hotel.neighborhood_cli
+    #user option 2 - neighborhood searches 
+    #searches accomodations by neighborhood name 
+    #BUG - when u_input is not included, returns the neighborhood list again 
+    def self.location_search
+        Hotel.all_neighborhoods 
+        puts "Please enter the neighborhood you are interested in from the list above."
+        u_input = STDIN.gets.chomp.strip 
+    if Hotel.all_neighborhoods.include?(u_input)
+            Hotel.all.select do |h|
+            if h.neighborhood == u_input
+            puts "ID: #{h.id}
+            Name: #{h.name}
+            Price: #{h.price}
+            Beds: #{h.beds}
+            Guest Count: #{h.guest_amount}
+            Neighborhood: #{h.neighborhood}\n"
+                end 
+            end
+        else 
+            puts ''
+            puts "Sorry, we don't have any neighborhoods by that name!"
+            Hotel.accomodations_search 
+            return 
+        end 
+        puts "Press any key to return to the accomodations menu."
+        any_key = STDIN.gets
+        Hotel.accomodations_search 
+    end 
 
-    #     end 
+    #user option 3 - by beds
 
-    # else 
-    # puts "We're sorry, there are no accomodations that match that criteria."
-    # puts 'press 1 to start a new search'
-    #     input = STDIN.gets.chomp.strip 
-    #     if input == '1'
-    #         Hotel.neighborhood_cli
-    # end 
-end 
-end 
+    def self.all_beds
+        beds = []
+        Hotel.all.select {|hotel| beds << hotel.beds}
+        # puts beds.uniq.compact 
+        beds.uniq.compact
+        # binding.pry 
+    end 
 
-#user option 3 - by beds
-
-def self.all_beds
-    beds = []
-    Hotel.all.select {|hotel| beds << hotel.beds}
-    # puts beds.uniq.compact 
-    beds.uniq.compact
-end 
-
-def self.bed_cli 
-    puts "Please enter the amount of beds you would like to seach for (ex. 2)."
-    user_input = STDIN.gets.chomp.strip 
-    if Hotel.all_beds.include? (user_input)
-        Hotel.all.select do |h|
-            if h.beds == user_input
-              puts "ID: #{h.id}
-              Name: #{h.name}
-              Price: #{h.price}
-              Beds: #{h.beds}
-              Guest Count: #{h.guest_amount}
-              Neighborhood: #{h.neighborhood}\n"
-             end 
-             puts "Press any key to return to the accomodations menu."
-                any_key = STDIN.gets
-             Hotel.accomodations_search 
+    def self.bed_cli 
+        puts "Please enter the amount of beds you would like to seach for (ex. 2)."
+        user_input = STDIN.gets.chomp.strip 
+        if Hotel.all_beds.include?(user_input)
+            results = Hotel.all.where(beds: user_input) 
+            results.each do |h|
+                puts "ID: #{h.id}
+                    Name: #{h.name}
+                    Price: #{h.price}
+                    Beds: #{h.beds}
+                    Guest Count: #{h.guest_amount}
+                    Neighborhood: #{h.neighborhood}\n"
             end 
+            Hotel.book_accomodation_by_bed 
         else 
             puts "We're sorry, we don't have any accomodations with that amount of beds."
             Hotel.bed_cli 
         end 
-#     puts "Press any key to return to the accomodations menu."
-#     any_key = STDIN.gets
-#     Hotel.accomodations_search 
-# end 
+    end 
 
-def self.bed_search(input) 
-   Hotel.all.select do |h|
-      if h.beds == input 
-        puts "ID: #{h.id}\n
-        Name: #{h.name}\n
-        Price: #{h.price}\n
-        Beds: #{h.beds}\n
-        Guest Count: #{h.guest_amount}\n
-        Neighborhood: #{h.neighborhood}"
-       end 
-    #    if results.count == 0 
-    #     puts "We're sorry, there are no accomodations that match that criteria."
-    #     puts 'press 1 to start a new search'
-       end 
-        input = STDIN.gets.chomp.strip 
-        if input == '1'
-            Hotel.bed_cli 
+    def Hotel.book_accomodation_by_bed 
+        puts 
+        'If you would like to make a reservation for any of these accomodations, enter (1)
+        If you would like to make another search for Bed Amount enter (2)
+        For the Accomodation Menu enter (3)'
+        new_choice = STDIN.gets.chomp.strip
+        case new_choice
+        when '1'
+            Reservation.create_new
+        when '2'
+            Hotel.bed_cli
+        when '3'
+            Hotel.accomodations_search
+        else 
+            puts 'Invalid'
+            Hotel.book_accomodation_by_bed 
         end 
-    end  
+    end 
+
     
-end 
+
 
 #user option 4 - by guest capacity 
 def self.guest_amount_cli 
