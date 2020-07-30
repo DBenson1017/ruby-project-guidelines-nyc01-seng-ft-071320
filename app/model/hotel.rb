@@ -19,7 +19,6 @@ class Hotel < ActiveRecord::Base
         any_key = STDIN.gets
         Hotel.accomodations_search  
     end 
-<<<<<<< HEAD
 
 
     # def self.neighborhood_cli
@@ -69,34 +68,6 @@ class Hotel < ActiveRecord::Base
     end 
 
     #user option 3 - by beds
-=======
-    puts "Press any key to return to the main menu."
-    any_key = STDIN.gets
-    Hotel.accomodations_search 
-end 
-
-#user option 2 - neighborhood searches    
-#status: needs exit CLI path  
-# any_key = STDIN.gets
-# Hotel.accomodations_search        
-
-#puts the array of available neighborhoods 
-def self.neighborhood_cli
-    puts Hotel.all_neighborhoods 
-    puts "Please enter the neighborhood you are interested in from the list above."
-    u_input = STDIN.gets.chomp.strip 
-    puts Hotel.location_search(u_input) 
-    #exit path?
-end 
-
-#shows available neighbnorhoods 
-def self.all_neighborhoods 
-    neighborhoods = []
-    Hotel.all.select {|hotel| neighborhoods << hotel.neighborhood}
-    puts neighborhoods.uniq.compact 
-    neighborhoods.uniq.compact
-end 
->>>>>>> 0a96660e9988e3818a859f50cffd040486d586ab
 
     def self.all_beds
         beds = []
@@ -147,43 +118,6 @@ end
 
     
 
-<<<<<<< HEAD
-
-#user option 4 - by guest capacity 
-def self.guest_amount_cli 
-        puts "Please enter the amount of guests you would like to seach for."
-        input = STDIN.gets.chomp.strip 
-        Hotel.capacity_search(input)
-        puts "Press any key to return to the accomodations menu."
-        any_key = STDIN.gets
-        Hotel.accomodations_search 
-        end 
-
-def self.capacity_search(number) 
-    if number == '1'
-    input = "#{number}"+" guest"
-    else 
-        input = "#{number}"+" guests"
-    end 
-    results = []
-    results = Hotel.all.select do |h|
-       if h.guest_amount == input  
-        puts "ID: #{h.id}\n
-        Name: #{h.name}\n
-        Price: #{h.price}\n
-        Beds: #{h.beds}\n
-        Guest Count: #{h.guest_amount}\n
-        Neighborhood: #{h.neighborhood}"
-       end 
-       if results.count == 0 
-        puts "We're sorry, there are no accomodations that match that criteria."
-        puts 'press 1 to start a new search'
-       end 
-        input = STDIN.gets.chomp.strip 
-        if input == '1'
-            Hotel.guest_amount_cli 
-        end 
-=======
 #user option 4 - by guest capacity 
 #status: needs exit CLI path  
     def self.all_guest_amounts
@@ -212,7 +146,6 @@ def self.capacity_search(number)
             puts "\nWere sorry. We don't have an accomidations avaliable for #{input}.\n"
             Hotel.accomodations_search
         end
->>>>>>> 0a96660e9988e3818a859f50cffd040486d586ab
     end 
 
     def self.book_accomidation_by_guest_amt
@@ -272,17 +205,10 @@ def self.budget_search(min, max)
 end 
 
    #accomodations main menu 
-<<<<<<< HEAD
    def Hotel.accomodations_search 
     puts 'ACCOMODATIONS SEARCH'
     puts '____________________ '
     puts 'To see ALL ACCOMODATIONS, press 1'
-=======
-   def self.accomodations_search 
-    puts 'Welcome! Here you can search our available accomodations.'
-    puts ' '
-    puts 'To see all accomodations, press 1'
->>>>>>> 0a96660e9988e3818a859f50cffd040486d586ab
     puts " "
     puts 'To search by:' 
     puts ''
