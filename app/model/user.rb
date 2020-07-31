@@ -5,9 +5,9 @@ class User < ActiveRecord::Base
 
   def self.main_menu 
     puts "\n\n\n                        --MAIN MENU--\n\n"
-    puts "(1)            To manage RESERVATIONS"
-    puts "(2)   To view avaialble ACCOMODATIONS"
-    puts "(3)                           To EXIT\n\n\n"
+    puts "(1)             To manage RESERVATIONS"
+    puts "(2)   To view avaialble ACCOMMODATIONS"
+    puts "(3)                            To EXIT\n\n\n"
     u_input = gets.chomp.strip 
     case u_input 
     when "1" 
@@ -18,7 +18,6 @@ class User < ActiveRecord::Base
       Cli.exit
     else 
       puts "\nPlease Enter a valid input"
-      Geocode.start
       User.main_menu
     end
   end 
@@ -28,10 +27,9 @@ class User < ActiveRecord::Base
     email_input = gets.chomp.strip
     puts "Please enter your password:"
     pw = gets.chomp.strip
-
     unless User.find_by(email: email_input, password: pw) then
       puts "Incorrect email/password"
-      User.log_in
+      Cli.begin
     else
       $current_user = User.find_by(email: email_input, password: pw)
       Geocode.start
@@ -50,7 +48,8 @@ class User < ActiveRecord::Base
     pw = gets.chomp.strip
       
     $current_user = User.create(first_name: first, last_name: last, email: user_email, password: pw)
-    puts "Thank you #{first} for signing up for BOOKING: NEW YORK!!\n\nEnjoy your first trip!\n\n"
+    puts "Thank you #{first} for signing up for BOOKING!!\n\nEnjoy your first trip!\n\n"
+    Geocode.start
     User.main_menu
   end
 

@@ -10,12 +10,24 @@ class Hotel < ActiveRecord::Base
             Price: #{h.price}
             Beds: #{h.beds}
             Guest Count: #{h.guest_amount}
-            Neighborhood: #{h.neighborhood}\n"
+            Neighborhood: #{h.neighborhood}
+            City: #{h.city}\n"
         end 
-        puts "Enter any key to return to the Accomodations Menu."
-        any_key = STDIN.gets
-        Hotel.accomodations_search  
+        Hotel.book_accomodation_from_list 
     end 
+    def Hotel.book_accomodation_from_list 
+        puts "\nIf you would like to make a Reservation for any of these Accommodations (1)\nFor the Accommodations Menu (2)"
+        new_choice = STDIN.gets.chomp.strip
+        case new_choice
+        when '1'
+            Reservation.create_new
+        when '2'
+            Hotel.accomodations_search
+        else 
+            puts 'Invalid'
+            Hotel.book_accomodation_by_bed 
+        end 
+    end
  
     def self.all_neighborhoods 
         neighborhoods = []
@@ -24,9 +36,9 @@ class Hotel < ActiveRecord::Base
     end 
 
     def self.location_search
-        puts "\nWe have Accomidations in the following Neighborhoods:\n\n"
+        puts "\nWe have Accommodations in the following Neighborhoods:\n\n"
         puts Hotel.all_neighborhoods 
-        puts "\nTo see Accomidations listed by Neighborhood, Enter the name of the Neighborhood:\n"
+        puts "\nTo see Accommodations listed by Neighborhood, Enter the name of the Neighborhood:\n"
         u_input = STDIN.gets.chomp.strip 
         if Hotel.all_neighborhoods.include?(u_input)
             results = Hotel.all.where(neighborhood: u_input)
@@ -36,7 +48,8 @@ class Hotel < ActiveRecord::Base
                     Price: #{h.price}
                     Beds: #{h.beds}
                     Guest Count: #{h.guest_amount}
-                    Neighborhood: #{h.neighborhood}\n"
+                    Neighborhood: #{h.neighborhood}
+                    City: #{h.city}\n"
             end 
             Hotel.book_accomodation_by_neighborhood
         else 
@@ -44,13 +57,13 @@ class Hotel < ActiveRecord::Base
             Hotel.accomodations_search 
             return 
         end 
-        puts "Enter any key to return to the Accomodations menu."
+        puts "Enter any key to return to the Accommodations menu."
         any_key = STDIN.gets
         Hotel.accomodations_search 
     end 
 
     def self.book_accomodation_by_neighborhood
-        puts "\nIf you would like to make a Reservation for any of these Accomodations (1)\nIf you would like to make another search by Neighborhood (2)\nAccomodations Menu (3)"
+        puts "\nIf you would like to make a Reservation for any of these Accommodations (1)\nIf you would like to make another search by Neighborhood (2)\nAccommodations Menu (3)"
         new_choice = STDIN.gets.chomp.strip
         case new_choice
         when '1'
@@ -73,7 +86,7 @@ class Hotel < ActiveRecord::Base
     end 
 
     def self.bed_cli 
-        puts "\nPlease Enter the number of Bed(s) you would like to seach by:"
+        puts "\nPlease Enter the number of Bed(s) you would like to seach by"
         user_input = STDIN.gets.chomp.strip 
         if Hotel.all_beds.include?(user_input)
             results = Hotel.all.where(beds: user_input) 
@@ -83,17 +96,18 @@ class Hotel < ActiveRecord::Base
                     Price: #{h.price}
                     Beds: #{h.beds}
                     Guest Count: #{h.guest_amount}
-                    Neighborhood: #{h.neighborhood}\n"
+                    Neighborhood: #{h.neighborhood}
+                    City: #{h.city}\n"
             end 
             Hotel.book_accomodation_by_bed 
         else 
-            puts "We're sorry, we don't have any Accomodations with #{user_input} of beds."
+            puts "We're sorry, we don't have any Accommodations with #{user_input} of beds."
             Hotel.bed_cli 
         end 
     end 
 
     def Hotel.book_accomodation_by_bed 
-        puts "\nIf you would like to make a Reservation for any of these Accomodations (1)\nIf you would like to make another search by Bed Amount (2)\nFor the Accomodations Menu (3)"
+        puts "\nIf you would like to make a Reservation for any of these Accommodations (1)\nIf you would like to make another search by Bed Amount (2)\nFor the Accommodations Menu (3)"
         new_choice = STDIN.gets.chomp.strip
         case new_choice
         when '1'
@@ -126,17 +140,21 @@ class Hotel < ActiveRecord::Base
                 Price: #{h.price}
                 Beds: #{h.beds}
                 Guest Count: #{h.guest_amount}
-                Neighborhood: #{h.neighborhood}\n"
+                Neighborhood: #{h.neighborhood}
+                City: #{h.city}\n"
             end
             Hotel.book_accomidation_by_guest_amt 
         else
-            puts "\nWere sorry. We don't have an Accomidations avaliable for #{input}.\n"
+            puts "\nWere sorry. We don't have an Accommodations avaliable for #{input}.\n"
+            puts "\nTo search by Guest Amount (1)\nTo return to Accommodations Menu (2)\n"
+            u_choice = gets.chomp.strip
+            u_choice == "1" ? Hotel.guest_amount_cli : Hotel.accomodations_search
             Hotel.guest_amount_cli
         end
     end 
 
     def self.book_accomidation_by_guest_amt
-        puts "\nIf you would like to make a Reservation for any of these Accomidations (1)\nIf you would like to make another search by Guest Amount (2)\nAccomidations Menu (3)\n"
+        puts "\nIf you would like to make a Reservation for any of these Accommodations (1)\nIf you would like to make another search by Guest Amount (2)\nAccommodations Menu (3)\n"
         new_choice = gets.chomp.strip
         case new_choice
         when "1"
@@ -153,13 +171,13 @@ class Hotel < ActiveRecord::Base
 
 
     def self.price_cli 
-        puts "\n\nSearch Accomodations by price range\n"
+        puts "\n\nSearch Accommodations by price range\n"
         puts "What is your Minimum Amount:\n"
         min = gets.chomp.strip 
         puts "What is the your Maximum Amount:\n"
         max = gets.chomp.strip 
         puts Hotel.budget_search(min, max)
-        puts "\nPress any key to return to the Accomodations menu."
+        puts "\nPress any key to return to the Accommodations menu."
         any_key = gets
         Hotel.accomodations_search 
     end 
@@ -176,17 +194,18 @@ class Hotel < ActiveRecord::Base
                     Price: #{h.price}
                     Beds: #{h.beds}
                     Guest Count: #{h.guest_amount}
-                    Neighborhood: #{h.neighborhood}\n"
+                    Neighborhood: #{h.neighborhood}
+                    City: #{h.city}\n"
             end
             Hotel.book_accomidation_by_price_range
         else    
-            puts "Sorry there are no Accomodations that match your Price Range.\n"
+            puts "Sorry there are no Accommodations that match your Price Range.\n"
             Hotel.price_cli
         end
     end 
 
     def self.book_accomidation_by_price_range
-        puts "\nIf you would like to make a Reservation for any of these Accomidations (1)\nIf you would like to make another search by Price Range (2)\nAccomidations Menu (3)\n"
+        puts "\nIf you would like to make a Reservation for any of these Accommodations (1)\nIf you would like to make another search by Price Range (2)\nAccommodations Menu (3)\n"
         new_choice = gets.chomp.strip
         case new_choice
         when "1"
@@ -205,8 +224,8 @@ class Hotel < ActiveRecord::Base
 
    #accomodations main menu 
    def Hotel.accomodations_search 
-        puts "\n--ACCOMODATIONS--\n\n"
-        puts "\nLIST ALL ACCOMODATIONS  (1)\n\n"
+        puts "\n--ACCOMMODATIONS--\n\n"
+        puts "\nLIST ALL ACCOMMODATIONS  (1)\n\n"
         puts "To search by:\n" 
         puts "NEIGHBORHOOD            (2)"
         puts "NUMBER OF BEDS          (3)"
@@ -232,12 +251,7 @@ class Hotel < ActiveRecord::Base
         end  
     end 
 
-    ### HELPER METHOD OF RESERVATION CLASS ###
-    def self.all_accomidations
-        Hotel.all.each do |r|
-        puts "\nId: #{r.id}\nName: #{r.name}\nPrice: #{r.price}\nBeds: #{r.beds}\nGuest Count: #{r.guest_amount}\nNeighborhood: #{r.neighborhood}\n\n"
-        end
-    end
+
 
 end 
 

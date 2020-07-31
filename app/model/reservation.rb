@@ -19,7 +19,7 @@ class Reservation < ActiveRecord::Base
     when "3"
       $current_user.reservations.reload != [] ? Reservation.reservation_delete : Reservation.uh_oh
     when "4"
-      puts "\n\nHere is a list of all avaliable Accomidations:\n\n"
+      puts "\n\nHere is a list of all avaliable Accommodations:\n\n"
       Hotel.all_hotels
       Reservation.create_new
     when "5"
@@ -36,12 +36,13 @@ class Reservation < ActiveRecord::Base
   def self.reservation_list
     puts "\n\nHere are all your Reservations:\n\n"
     $current_user.reservations.reload.each do |r|
-      puts "ID: #{h.id}
-        Name: #{h.name}
-        Price: #{h.price}
-        Beds: #{h.beds}
-        Guest Count: #{h.guest_amount}
-        Neighborhood: #{h.neighborhood}\n
+      puts "ID: #{r.id}
+        Name: #{r.hotel.name}
+        Price: #{r.hotel.price}
+        Beds: #{r.hotel.beds}
+        Guest Count: #{r.hotel.guest_amount}
+        Neighborhood: #{r.hotel.neighborhood}
+        City: #{r.hotel.city}\n
         Dates:#{r.start_date.strftime('%a %d %b %Y')} - #{r.end_date.strftime('%a %d %b %Y')}\n\n"
     end
     puts "Enter anything to return to the Reservation Menu."
@@ -51,12 +52,13 @@ class Reservation < ActiveRecord::Base
   
   def self.reservations_list_by_name_and_id
     $current_user.reservations.reload.each do |r|
-      puts "ID: #{h.id}
-            Name: #{h.name}
-            Price: #{h.price}
-            Beds: #{h.beds}
-            Guest Count: #{h.guest_amount}
-            Neighborhood: #{h.neighborhood}\n"
+      puts "ID: #{r.id}
+            Name: #{r.hotel.name}
+            Price: #{r.hotel.price}
+            Beds: #{r.hotel.beds}
+            Guest Count: #{r.hotel.guest_amount}
+            Neighborhood: #{r.hotel.neighborhood}
+            City: #{r.hotel.city}\n"
     end
   end
   
@@ -127,22 +129,20 @@ class Reservation < ActiveRecord::Base
     chosen_reservation.start_date = DateTime.parse(@new_start_date)
     chosen_reservation.end_date = DateTime.parse(@new_end_date)
     chosen_reservation.save
-    puts "\n\nYour changes have been saved.\nEnter any key to return to the Reservations Menu.\n"
+    puts "\n\nYour changes have been saved.\n\n\nEnter any key to return to the Reservations Menu.\n"
     any_key = gets
     Reservation.menu
   end
 
 
   def self.create_new
-    # puts "\n\nHere is a list of all avaliable Accomidations:\n\n"
-    # Hotel.all_accomidations
     puts "\nPlease Enter the (id) of the Accomidation you would like to make a reservation for.\n"
     h_id = gets.chomp.strip
     Reservation.valid_start_date
     Reservation.valid_end_date
     if Hotel.all.ids.include?(h_id.to_i)
       new_r = Reservation.create(user_id: $current_user.id, hotel_id: h_id, start_date: DateTime.parse(@new_start_date), end_date: DateTime.parse(@new_end_date))
-      puts "\nYour Reservation has been made!\nEnter any key to return to Reservations Menu."
+      puts "\n\n\nYour Reservation has been made!!!\n\n\nEnter any key to return to Reservations Menu."
       new_r.save
       any = gets
       Reservation.menu
@@ -155,7 +155,7 @@ class Reservation < ActiveRecord::Base
   
 
   def self.uh_oh
-    puts "\n\nUh oh!\nLooks like you don't have any RESERVATIONS currently.\nEnter any key to continue to the ACCOMIDATIONS Menu.\n\n"
+    puts "\n\nUh oh!\nLooks like you don't have any RESERVATIONS currently.\nEnter any key to continue to the ACCOMMODATIONS Menu.\n\n"
     any_key = gets
     Hotel.accomodations_search
   end

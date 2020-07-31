@@ -6,7 +6,7 @@ class Art
    |xxxxxxx|  _^^^^^_
    |xxxxxxx| | [][]  |
 ______xxxxx| |[][][] |
-|++++++|xxxx| | [][][]|           BOOKING: NEW YORK
+|++++++|xxxx| | [][][]|                 BOOKING
 |++++++|xxxx| |[][][] |      
 |++++++|_________ [][]|      BY: BRIAN LEGO & DEVIN BENSON
 |++++++|=|=|=|=|=| [] |           
