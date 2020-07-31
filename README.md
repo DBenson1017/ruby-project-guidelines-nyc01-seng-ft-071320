@@ -1,3 +1,40 @@
+# Description 
+
+Booker NYC is an app that allows users to search and book accomodations in the NYC area. The app is built around three Ruby classes, a database pulled from an API of AirBnB listings, and CLI commands for user input. 
+
+The Ruby classes are User, Hotel, and Reservation. In this model users and hotels are joined together in many_to_many relationshuos through the Reservation class. Reservatations contain User and Hotel IDs, as well as a start and end date. 
+
+The database we use is seeded with real accomodation information through an API subscritpion. Users are able to create profiles with an email and password, and then "book" accomodations by creating new instances of our Reservation class. 
+
+Users are able to login, and through the Hotel class, search our database for accomodations based on the neighbood name, amount of beds, guest capacity, or price. Once they find the right accomodation, a menu of prompts collects their start and end date, and saves their new reservation to the database. From the main menu, users are able to view their reservations, and subsequently edit or delete records attached to their User ID. 
+
+
+# Install Instructions 
+
+Anyone who pulls the Booker NYC file down from GitHub will be able to open and read the app code in a text editor. In order to use the app, users will need to subscribe to the seeding API. Users can do this by: 
+  Navigating to https://rapidapi.com/WebDataHub.com/api/Airbnb.com
+  Subscirbing to the monthly plan that fits their needs. 
+  Obtaining an access key through their subscription. 
+  Saving a new .env file at the top level of the Booker NYC directory with a single line of code that sets airbnb_key = 'their new access key.'
+
+# Contributors Guide 
+
+Contributions and pull requests are welcome through GitHub. In order to experiment with Booker NYC please follow the directions above for new users to acccess the AirBnB API. Contributors and users alike will need subscriptions to the API in order for the app to work. 
+
+
+# License 
+
+
+
+
+
+
+
+
+
+
+
+
 # Module One Final Project Guidelines
 
 Congratulations, you're at the end of module one! You've worked crazy hard to get here and have learned a ton.

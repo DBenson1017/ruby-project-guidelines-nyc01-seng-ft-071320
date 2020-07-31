@@ -1,13 +1,15 @@
+
+
 class Cli
 
 
 
   def self.begin
-    puts "\nWelcome to BOOKING: NEW YORK\n\n"
+    puts "\nWelcome to BOOKING: NEW YORK\n\n".colorize(:color=>:blue)
     # puts " "
-    puts "A simple and easy way to book accomidations in New York City\n\n"
+    puts "A simple and easy way to book accomidations in New York City\n\n".colorize(:color=>:blue)
     # puts " "
-    puts "To login in type 'log in' to sign up type 'sign up'\n\n"
+    puts "To login in type 'log in' to sign up type 'sign up'\n\n".colorize(:color=>:blue)
     u_response = gets.chomp.downcase.strip
     case u_response
     when 'log in'
