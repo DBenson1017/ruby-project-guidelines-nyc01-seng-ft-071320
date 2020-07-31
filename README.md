@@ -1,26 +1,32 @@
+# Description 
+
+Booker is an app that allows users to search for AirBnB accomodations in any particular city or locality. The app works with three classes and two APIs. The classes of User and Hotel are in a many_to_many relationship through the join class of Reservation. Users are able to create, view, edit, and delete reserations by creating new Reservation instnaces that include the Hotel and User IDs.
+
+The backbone of the app isa geocode API which accepts a city and state from the user and returns that locality's longitude and latitude. Those coordinates are then entered into a API of AirBnb listings, returning 20 possible accomodatiosn in the area. Users are then able to search these accomodations by price, neighborhod, bed count, and guest capacity. Once a user finds an appropritate accomodation, they are able to create a new reservation. 
+
+# Install Instructions 
+
+Anyone who pulls the Booker app file down from GitHub will be able to open and read the app code in a text editor. In order to use the app, users will need to subscribe to two separate APIs. Once a user has their unique API keys they can: 
+Create a .env file at the top level of the app directory. 
+In the .env file, set airbnb_key = 'the user's AirBnB API key'
+In the .env file, set geocode_key = 'the user's geocode API key'
+Once the user has these keys in their .env file, the keys will be pulled in the .rb files and give the user access to the two APIs used bnehind the app. 
+The geocode API can be found here: https://opencagedata.com/
+The AirBnN API can be found here: https://rapidapi.com/WebDataHub.com/api/Airbnb.com
+
+Once users have access to their API keys, running the app in the terminal with 'Ruby bin/run.rb' will open the app in the terminal and walk the user through menus of options to begin their search. 
+
+# Contributors Guide 
+
+Contributions and pull requests are welcome through GitHub. In order to experiment with Booker NYC please follow the directions above for new users to acccess the AirBnB API. Contributors and users alike will need subscriptions to the API in order for the app to work. 
 
 
-BOOKER NYC README 
-
-Description 
-
-Install Instructions 
-
-Contributors Guide
-
-Link to license for code 
+# License 
 
 
 
 
-
-
-
-
-
-
-
-
+###################################################################
 
 # Module One Final Project Guidelines
 
