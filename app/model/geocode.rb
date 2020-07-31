@@ -26,22 +26,23 @@ class Geocode
   def self.search_by_city_and_state(city, state)
     geocode_response = Unirest.get "https://api.opencagedata.com/geocode/v1/json?q=#{city}%2C%20#{state}&key=#{@key}&language=en&pretty=1"
     parsed = geocode_response.body
-    lat = parsed["results"][0]["geometry"]["lat"]
-    lng = parsed["results"][0]["geometry"]["lng"]
-    
-    response = Unirest.get "https://airbnb-com.p.rapidapi.com/listings/nearby/#{lat}/#{lng}",
-    headers:{
-    "X-RapidAPI-Host" => "airbnb-com.p.rapidapi.com",
-    "X-RapidAPI-Key" => ENV['airbnb_key']
-    }
-    data = response.body
-      begin
-      data["listings"].each do |listing|
-        Hotel.create(name: listing["listing"]["name"], price: listing['pricing_quote']['rate']['amount'], beds: listing["listing"]["beds"], guest_amount: listing["listing"]["guest_label"], neighborhood: listing["listing"]["localized_neighborhood"], city: listing["listing"]["localized_city"])
-      rescue NoMethodError
-        puts "\n\nYou Entered an invalid City/State.\n\n"
-        Geocode.start
+      if parsed["results"] != []
+        lat = parsed["results"][0]["geometry"]["lat"]
+        lng = parsed["results"][0]["geometry"]["lng"]
+
+        response = Unirest.get "https://airbnb-com.p.rapidapi.com/listings/nearby/#{lat}/#{lng}",
+        headers:{
+        "X-RapidAPI-Host" => "airbnb-com.p.rapidapi.com",
+        "X-RapidAPI-Key" => ENV['airbnb_key']
+        }
+        data = response.body
+          data["listings"].each do |listing|
+            Hotel.create(name: listing["listing"]["name"], price: listing['pricing_quote']['rate']['amount'], beds: listing["listing"]["beds"], guest_amount: listing["listing"]["guest_label"], neighborhood: listing["listing"]["localized_neighborhood"], city: listing["listing"]["localized_city"])
+          end
+      else
+          puts "\n\nYou Entered an invalid City/State.\n\n"
+          Geocode.start
       end
-    end
+    
   end
 end

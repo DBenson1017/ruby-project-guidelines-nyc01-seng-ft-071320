@@ -107,7 +107,7 @@ class Hotel < ActiveRecord::Base
             end 
             Hotel.book_accomodation_by_bed 
         else 
-            puts "We're sorry, we don't have any Accommodations with #{user_input} of beds."
+            puts "\nWe're sorry, we don't have any Accommodations with #{user_input} of beds."
             Hotel.bed_cli 
         end 
     end 
@@ -155,7 +155,6 @@ class Hotel < ActiveRecord::Base
             puts "\nTo search by Guest Amount (1)\nTo return to Accommodations Menu (2)\n"
             u_choice = gets.chomp.strip
             u_choice == "1" ? Hotel.guest_amount_cli : Hotel.accomodations_search
-            Hotel.guest_amount_cli
         end
     end 
 
