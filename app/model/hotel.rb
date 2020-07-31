@@ -69,7 +69,6 @@ class Hotel < ActiveRecord::Base
     def self.all_beds
         beds = []
         Hotel.all.select {|hotel| beds << hotel.beds}
-        # puts beds.uniq.compact 
         beds.uniq.compact
     end 
 

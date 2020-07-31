@@ -1,23 +1,23 @@
-require 'pry'
-Hotel.delete_all
+# require 'pry'
+# Hotel.delete_all
 User.delete_all
 Reservation.delete_all
 
 
-response = Unirest.get "https://airbnb-com.p.rapidapi.com/listings/nearby/40.750134/-73.997009",
-  headers:{
-    "X-RapidAPI-Host" => "airbnb-com.p.rapidapi.com",
-    "X-RapidAPI-Key" => ENV['airbnb_key']
-  }
-data = response.body
-# binding.pry
-  
+# response = Unirest.get "https://airbnb-com.p.rapidapi.com/listings/nearby/36.7462895/-76.6111382",
+#   headers:{
+#     "X-RapidAPI-Host" => "airbnb-com.p.rapidapi.com",
+#     "X-RapidAPI-Key" => ENV['airbnb_key']
+#   }
+# data = response.body
+
+
 #######################################
 
 ####### SEEDING THE HOTELS TABLE ######
-data["listings"].each do |listing|
-    Hotel.create(name: listing["listing"]["name"], price: listing['pricing_quote']['rate']['amount'], beds: listing["listing"]["beds"], guest_amount: listing["listing"]["guest_label"], neighborhood: listing["listing"]["localized_neighborhood"])
-end
+# data["listings"].each do |listing|
+#     Hotel.create(name: listing["listing"]["name"], price: listing['pricing_quote']['rate']['amount'], beds: listing["listing"]["beds"], guest_amount: listing["listing"]["guest_label"], neighborhood: listing["listing"]["localized_neighborhood"])
+# end
 
 ##################SEED FOR USERS#####################
 User.create(first_name:'Brian', last_name:'Lego', email: "1234", password: "1234")

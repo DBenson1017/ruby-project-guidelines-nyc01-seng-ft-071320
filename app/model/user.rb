@@ -18,6 +18,7 @@ class User < ActiveRecord::Base
       Cli.exit
     else 
       puts "\nPlease Enter a valid input"
+      Geocode.start
       User.main_menu
     end
   end 
@@ -33,6 +34,7 @@ class User < ActiveRecord::Base
       User.log_in
     else
       $current_user = User.find_by(email: email_input, password: pw)
+      Geocode.start
       User.main_menu
     end
   end

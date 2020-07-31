@@ -3,7 +3,6 @@ class Cli
 
 
   def self.begin
-    puts "\n              --Welcome to BOOKING: NEW YORK--\n\n"
 
     puts "A simple and easy way to book Accomodations in New York City\n\n"
 
@@ -15,9 +14,7 @@ class Cli
     when 'sign up'
       User.sign_up
     else
-      puts "**********************"
-      puts "*****Invalid input****"
-      puts "**********************\n\n"
+      puts "\n\n        Invalid input\n\n"
       Cli.begin
     end
   end

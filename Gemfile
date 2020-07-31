@@ -8,4 +8,7 @@ gem "require_all"
 gem "dotenv"
 gem 'unirest', '~> 1.1', '>= 1.1.2'
 gem 'json', '~> 1.8.1'
+gem 'opencage-geocoder'
+gem 'rake'
+gem 'colorize'
 
