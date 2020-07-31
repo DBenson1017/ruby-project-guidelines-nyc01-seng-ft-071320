@@ -3,7 +3,7 @@ class Cli
   def self.begin
     #system('rake db:migrate')
     #system('rake db:seed')
-    puts "\n\n      A simple and easy way to book Accommodations\n\n"
+    puts "\n\n        A simple and easy way to book Accommodations\n\n"
     puts "             Enter either (log in) or (sign up)\n"
     puts "                    To Exit enter (exit)\n\n"
     u_response = gets.chomp.downcase.strip

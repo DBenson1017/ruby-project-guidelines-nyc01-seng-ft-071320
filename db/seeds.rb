@@ -1,15 +1,10 @@
 # require 'pry'
+
 #Hotel.delete_all
 #User.delete_all
-Reservation.delete_all
+#Reservation.delete_all
 
 
-# response = Unirest.get "https://airbnb-com.p.rapidapi.com/listings/nearby/36.7462895/-76.6111382",
-#   headers:{
-#     "X-RapidAPI-Host" => "airbnb-com.p.rapidapi.com",
-#     "X-RapidAPI-Key" => ENV['airbnb_key']
-#   }
-# data = response.body
 
 
 #######################################

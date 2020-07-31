@@ -71,7 +71,7 @@ class Reservation < ActiveRecord::Base
     if Reservation.all.ids.include?(res_id.to_i)
       res_to_dlt = Reservation.find_by(id: res_id.to_i)
       res_to_dlt.destroy
-      puts "     \nReservation deleted.\n\n"
+      puts "     \nRESERVATION DELETED.\n\n"
       Reservation.menu
     else
       puts "\n\nUh oh. It seems like you input an incorrect (id). Would you like to try again? (Y/N)\n\n"
@@ -129,7 +129,7 @@ class Reservation < ActiveRecord::Base
     chosen_reservation.start_date = DateTime.parse(@new_start_date)
     chosen_reservation.end_date = DateTime.parse(@new_end_date)
     chosen_reservation.save
-    puts "\n\nYour changes have been saved.\n\n\nEnter any key to return to the Reservations Menu.\n"
+    puts "\n\n     YOUR CHANGES HAVE BEEN SAVED.\n\n\nEnter any key to return to the Reservations Menu.\n"
     any_key = gets
     Reservation.menu
   end
@@ -142,7 +142,7 @@ class Reservation < ActiveRecord::Base
     Reservation.valid_end_date
     if Hotel.all.ids.include?(h_id.to_i)
       new_r = Reservation.create(user_id: $current_user.id, hotel_id: h_id, start_date: DateTime.parse(@new_start_date), end_date: DateTime.parse(@new_end_date))
-      puts "\n\n\nYour Reservation has been made!!!\n\n\nEnter any key to return to Reservations Menu."
+      puts "\n\n\n     YOUR RESERVATION HAS BEEN MADE!!!\n\n\nEnter any key to return to Reservations Menu."
       new_r.save
       any = gets
       Reservation.menu

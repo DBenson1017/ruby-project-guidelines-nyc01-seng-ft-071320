@@ -4,6 +4,7 @@ class Hotel < ActiveRecord::Base
     has_many :users, through: :reservations 
 
     def self.all_hotels
+        
         Hotel.all.each do |h|
             puts "ID: #{h.id}
             Name: #{h.name}
@@ -225,12 +226,12 @@ class Hotel < ActiveRecord::Base
    #accomodations main menu 
    def Hotel.accomodations_search 
         puts "\n--ACCOMMODATIONS--\n\n"
-        puts "\nLIST ALL ACCOMMODATIONS  (1)\n\n"
+        puts "\nLIST ALL ACCOMMODATIONS         (1)\n\n"
         puts "To search by:\n" 
-        puts "NEIGHBORHOOD            (2)"
-        puts "NUMBER OF BEDS          (3)"
-        puts "GUEST CAPACITY          (4)"
-        puts "PRICE RANGE             (5)\n\n"
+        puts "NEIGHBORHOOD                    (2)"
+        puts "NUMBER OF BEDS                  (3)"
+        puts "GUEST CAPACITY                  (4)"
+        puts "PRICE RANGE                     (5)\n\n"
         puts "MAIN MENU (6)  LOG OFF and Exit (7)"
         u_input = gets.chomp.strip 
         case u_input 

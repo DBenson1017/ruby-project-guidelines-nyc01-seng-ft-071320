@@ -1,7 +1,7 @@
 
 class Art
   def self.start_screen
-    puts "\n     ^
+    puts "\n                 ^
     _______     ^^^
    |xxxxxxx|  _^^^^^_
    |xxxxxxx| | [][]  |

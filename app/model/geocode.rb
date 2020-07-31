@@ -3,9 +3,9 @@ class Geocode
   @key = ENV['geocode_key']
   
   def self.start
-    Hotel.delete_all
+    #Hotel.delete_all
     puts "\n\nPlease Enter where you would like to search."
-    puts "It must be formated 'CITY, STATE' for example (New York City, NY)\n\n"
+    puts "It must be formated (CITY, STATE) for example: New York City, NY\n\n"
     user_input = gets.chomp.strip
     begin
       u1 = user_input.split(',')
@@ -17,7 +17,9 @@ class Geocode
       puts "\n\nINVALID INPUT\n\n"
       Geocode.start
     end
-    #binding.pry
+    puts "\n\n\nYou entered '#{user_input}'. If this is correct press Enter.\n\n"
+    anyk = gets
+    puts "\n\n\nThis may take a few moments.\n"
     Geocode.search_by_city_and_state(city, state)
   end
   
@@ -35,7 +37,7 @@ class Geocode
     data = response.body
     data["listings"].each do |listing|
       Hotel.create(name: listing["listing"]["name"], price: listing['pricing_quote']['rate']['amount'], beds: listing["listing"]["beds"], guest_amount: listing["listing"]["guest_label"], neighborhood: listing["listing"]["localized_neighborhood"], city: listing["listing"]["localized_city"])
-    system('rake db:seed')
+    #system('rake db:seed')
     end
   end
 end
