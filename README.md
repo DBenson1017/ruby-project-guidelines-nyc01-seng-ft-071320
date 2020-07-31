@@ -11,14 +11,14 @@ Create a .env file at the top level of the app directory.
 In the .env file, set airbnb_key = 'the user's AirBnB API key'
 In the .env file, set geocode_key = 'the user's geocode API key'
 Once the user has these keys in their .env file, the keys will be pulled in the .rb files and give the user access to the two APIs used bnehind the app. 
-The geocode API can be found here: https://opencagedata.com/
+The Geocode API can be found here: https://opencagedata.com/
 The AirBnN API can be found here: https://rapidapi.com/WebDataHub.com/api/Airbnb.com
 
 Once users have access to their API keys, running the app in the terminal with 'Ruby bin/run.rb' will open the app in the terminal and walk the user through menus of options to begin their search. 
 
 # Contributors Guide 
 
-Contributions and pull requests are welcome through GitHub. In order to experiment with Booker NYC please follow the directions above for new users to acccess the AirBnB API. Contributors and users alike will need subscriptions to the API in order for the app to work. 
+Contributions and pull requests are welcome through GitHub. In order to experiment with Booker  please follow the directions above for new users to acccess the AirBnB and Geocode API. Contributors and users alike will need subscriptions to the APIs in order for the app to work. 
 
 
 # License 
