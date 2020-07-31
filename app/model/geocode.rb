@@ -35,9 +35,13 @@ class Geocode
     "X-RapidAPI-Key" => ENV['airbnb_key']
     }
     data = response.body
-    data["listings"].each do |listing|
-      Hotel.create(name: listing["listing"]["name"], price: listing['pricing_quote']['rate']['amount'], beds: listing["listing"]["beds"], guest_amount: listing["listing"]["guest_label"], neighborhood: listing["listing"]["localized_neighborhood"], city: listing["listing"]["localized_city"])
-    #system('rake db:seed')
+      begin
+      data["listings"].each do |listing|
+        Hotel.create(name: listing["listing"]["name"], price: listing['pricing_quote']['rate']['amount'], beds: listing["listing"]["beds"], guest_amount: listing["listing"]["guest_label"], neighborhood: listing["listing"]["localized_neighborhood"], city: listing["listing"]["localized_city"])
+      rescue NoMethodError
+        puts "\n\nYou Entered an invalid City/State.\n\n"
+        Geocode.start
+      end
     end
   end
 end

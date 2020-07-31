@@ -2,10 +2,14 @@
 class Hotel < ActiveRecord::Base
     has_many :reservations 
     has_many :users, through: :reservations 
+    
+    def self.last_20
+        Hotel.last(20)
+    end
+
 
     def self.all_hotels
-        
-        Hotel.all.each do |h|
+        Hotel.last_20.each do |h|
             puts "ID: #{h.id}
             Name: #{h.name}
             Price: #{h.price}
@@ -32,35 +36,36 @@ class Hotel < ActiveRecord::Base
  
     def self.all_neighborhoods 
         neighborhoods = []
-        Hotel.all.select {|hotel| neighborhoods << hotel.neighborhood}
+        Hotel.last_20.select {|hotel| neighborhoods << hotel.neighborhood}
         neighborhoods.uniq.compact
     end 
 
     def self.location_search
-        puts "\nWe have Accommodations in the following Neighborhoods:\n\n"
-        puts Hotel.all_neighborhoods 
-        puts "\nTo see Accommodations listed by Neighborhood, Enter the name of the Neighborhood:\n"
-        u_input = STDIN.gets.chomp.strip 
-        if Hotel.all_neighborhoods.include?(u_input)
-            results = Hotel.all.where(neighborhood: u_input)
-            results.each do |h|
-                puts "ID: #{h.id}
-                    Name: #{h.name}
-                    Price: #{h.price}
-                    Beds: #{h.beds}
-                    Guest Count: #{h.guest_amount}
-                    Neighborhood: #{h.neighborhood}
-                    City: #{h.city}\n"
-            end 
-            Hotel.book_accomodation_by_neighborhood
-        else 
+        unless Hotel.all_neighborhoods == []
+            puts "\nWe have Accommodations in the following Neighborhoods:\n\n"
+            puts Hotel.all_neighborhoods 
+            puts "\nTo see Accommodations listed by Neighborhood, Enter the name of the Neighborhood:\n"
+            u_input = STDIN.gets.chomp.strip 
+            if Hotel.all_neighborhoods.include?(u_input) 
+            results = Hotel.last_20.select {|h| h.neighborhood == u_input}
+                results.each do |h|
+                    puts "ID: #{h.id}
+                        Name: #{h.name}
+                        Price: #{h.price}
+                        Beds: #{h.beds}
+                        Guest Count: #{h.guest_amount}
+                        Neighborhood: #{h.neighborhood}
+                        City: #{h.city}\n"
+                    end 
+                Hotel.book_accomodation_by_neighborhood
+            else 
             puts "\nSorry, we don't have any Neighborhoods named #{u_input}!"
             Hotel.accomodations_search 
-            return 
-        end 
-        puts "Enter any key to return to the Accommodations menu."
-        any_key = STDIN.gets
-        Hotel.accomodations_search 
+            end 
+        else
+            puts "\n\nWe're sorry. None of our listings for the city you have choosen are labled with 'Neighborhood'.\nPlease search by another attribute.\n\n"
+            Hotel.accomodations_search
+        end
     end 
 
     def self.book_accomodation_by_neighborhood
@@ -82,7 +87,7 @@ class Hotel < ActiveRecord::Base
 
     def self.all_beds
         beds = []
-        Hotel.all.select {|hotel| beds << hotel.beds}
+        Hotel.last_20.select {|hotel| beds << hotel.beds}
         beds.uniq.compact
     end 
 
@@ -90,7 +95,7 @@ class Hotel < ActiveRecord::Base
         puts "\nPlease Enter the number of Bed(s) you would like to seach by"
         user_input = STDIN.gets.chomp.strip 
         if Hotel.all_beds.include?(user_input)
-            results = Hotel.all.where(beds: user_input) 
+            results = Hotel.last_20.select {|h| h.beds == user_input}
             results.each do |h|
                 puts "ID: #{h.id}
                     Name: #{h.name}
@@ -126,7 +131,7 @@ class Hotel < ActiveRecord::Base
 
     def self.all_guest_amounts
         all_guest_amts_array = []
-        Hotel.all.each {|h| all_guest_amts_array << h.guest_amount}
+        Hotel.last_20.each {|h| all_guest_amts_array << h.guest_amount}
         all_guest_amts_array
     end
 
@@ -134,7 +139,7 @@ class Hotel < ActiveRecord::Base
         puts "Please Enter the Guest Amount formated: '__ guest(s)'"
         input = STDIN.gets.chomp.strip 
         if Hotel.all_guest_amounts.include?(input)
-            result = Hotel.all.where(guest_amount: input)
+            result = Hotel.last_20.select {|h| h.guest_amount == input}
             result.each do |h|
                 puts "ID: #{h.id}
                 Name: #{h.name}
@@ -185,7 +190,7 @@ class Hotel < ActiveRecord::Base
 
     def self.budget_search(min, max) 
         results = []
-        Hotel.all.each do |h|
+        Hotel.last_20.each do |h|
             results << h if h.price <= max.to_i && h.price >= min.to_i  
         end 
         if results.count != 0
